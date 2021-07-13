@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Красивые места России">
+  <meta name="keywords" content="HTML5, CSS">
+  <meta name="author" content="Никита Дружевский">
+  <link rel="icon" sizes="16x16" href="./images/icon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./pages/index.css">
+
+  <title>Mesto</title>
+</head>
+
+<body>
+  <div class="page">
+
+    <section class="header">
+      <a href="#">
+        <img class="header__logo" src="./images/logo.png" alt="логотип Mesto">
+      </a>
+    </section>
+
+    <div class="main">
+      <section class="profile">
+        <div class="profile__container">
+          <div class="profile__avatar"></div>
+          <div class="profile__profile-info">
+            <p class="profile__name">Жак-Ив Кусто </p>
+            <button class="profile__button-edit"></button>
+            <p class="profile__discription">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__button-plus"></button>
+      </section>
+      <setion class="elements">
+        <ul class="elements__list">
+        <li class="element">
+          <img src="./images/ruskeala.jpg" alt="Рускеала" class="element__picture">
+          <div class="element__container">
+            <h2 class="element__place-name">Рускеала</h2>
+            <button class="element__button-like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img src="./images/kizhi.jpg" alt="Кижи" class="element__picture">
+          <div class="element__container">
+            <h2 class="element__place-name">Кижи</h2>
+            <button class="element__button-like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img src="./images/baikal.jpg" alt="Байкал" class="element__picture">
+          <div class="element__container">
+            <h2 class="element__place-name">Байкал</h2>
+            <button class="element__button-like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img src="./images/lenstolb.jpg" alt="Ленские столбы" class="element__picture">
+          <div class="element__container">
+            <h2 class="element__place-name">Ленские столбы</h2>
+            <button class="element__button-like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img src="./images/derbent.jpg" alt="Дербент" class="element__picture">
+          <div class="element__container">
+            <h2 class="element__place-name">Дербент</h2>
+            <button class="element__button-like"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img src="./images/elbrus.jpg" alt="Эльбрус" class="element__picture">
+          <div class="element__container">
+            <h2 class="element__place-name">Эльбрус</h2>
+            <button class="element__button-like"></button>
+          </div>
+        </li>
+      </ul>
+      </setion>
+
+      <form class="popup popup_opened">
+        <div class="popup__container">
+          <button class="popup__button-close"></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" class="popup__name" placeholder="Имя">
+          <input type="text" class="popup__desription" placeholder="О себе">
+          <input class="popup__button-save" value="Сохранение" type="submit">
+        </div>
+      </form>
+    </div>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2021 Никита Дружевский</p>
+    </footer>
+  </div>
+</body>
+</html>
