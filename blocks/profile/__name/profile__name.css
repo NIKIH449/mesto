@@ -5,6 +5,7 @@
   color: #FFFFFF;
   font-style: normal;
   margin: 0;
+  width: 288px;
 }
 
 
@@ -12,6 +13,11 @@
   .profile__name {
     font-size: 27px;
     line-height: 33px;
+    width: 186px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .profile__name {
     text-align: center;
   }
 }
