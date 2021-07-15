@@ -7,6 +7,7 @@ let profileDescription = page.querySelector('.profile__description');
 let nameInput = formElement.querySelector('.popup__input_name');
 let jobInput = formElement.querySelector('.popup__input_description');
 
+
 function showPopup () {
 
   nameInput.value = profileName.textContent
