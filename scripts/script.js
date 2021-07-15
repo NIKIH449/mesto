@@ -5,12 +5,11 @@ let closeButton = main.querySelector('.popup__button-close');
 let formElement = main.querySelector('.popup');
 let profileName = main.querySelector('.profile__name');
 let profiledescription = main.querySelector('.profile__description');
-let popupContainer = formElement.querySelector('.popap__container');
 let nameInput = formElement.querySelector('.popup__name');
 let jobInput = formElement.querySelector('.popup__desription');
 
-document.querySelector('.popup__name').value = 'Жак-Ив Кусто';
-document.querySelector('.popup__desription').value = 'Исследователь океана';
+formElement.querySelector('.popup__name').value = 'Жак-Ив Кусто';
+formElement.querySelector('.popup__desription').value = 'Исследователь океана';
 
 function showPopup () {
 
@@ -32,5 +31,5 @@ function formSubmitHandler (evt) {
   closePopup ();
   }
 
-  formElement.addEventListener('submit', formSubmitHandler);
+formElement.addEventListener('submit', formSubmitHandler);
 
