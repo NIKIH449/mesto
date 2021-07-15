@@ -11,7 +11,6 @@ function showPopup () {
 
   nameInput.value = profileName.textContent
   jobInput.value = profileDescription.textContent
-
   formElement.classList.add('popup_opened');
 }
 
@@ -27,7 +26,7 @@ function formSubmitHandler (evt) {
 
   closePopup ();
   }
-  
+
 editButton.addEventListener('click', showPopup);
 closeButton.addEventListener('click', closePopup);
 formElement.addEventListener('submit', formSubmitHandler);
