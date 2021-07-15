@@ -15,11 +15,11 @@
 <body>
   <div class="page">
 
-    <section class="header">
+    <header class="header">
       <a href="#">
-        <img class="header__logo" src="./images/logo.png" alt="логотип Mesto">
+        <img class="header__logo" src="./images/logo.svg" alt="логотип Mesto">
       </a>
-    </section>
+    </header>
 
     <main class="main">
       <section class="profile">
@@ -27,19 +27,19 @@
           <div class="profile__avatar"></div>
           <div class="profile__profile-info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__button-edit"></button>
+            <button class="profile__button-edit" type="button"></button>
             <p class="profile__description">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__button-plus"></button>
+        <button class="profile__button-plus" type="button"></button>
       </section>
-      <setion class="elements">
+      <section class="elements">
         <ul class="elements__list">
           <li class="element">
             <img src="./images/ruskeala.jpg" alt="Рускеала" class="element__picture">
             <div class="element__container">
               <h2 class="element__place-name">Рускеала</h2>
-              <button class="element__button-like"></button>
+              <button class="element__button-like" type="button"></button>
             </div>
           </li>
           <li class="element">
@@ -78,21 +78,23 @@
             </div>
           </li>
         </ul>
-      </setion>
+      </section>
 
-      <form class="popup popup_opened">
-        <div class="popup__container">
-          <button type='button' class="popup__button-close"></button>
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__name" placeholder="Имя">
-          <input type="text" class="popup__desription" placeholder="О себе">
-          <input class="popup__button-save" value="Сохранение" type="submit">
-        </div>
-      </form>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2021 Никита Дружевский</p>
     </footer>
+        <div class="popup">
+          <div class="popup__container">
+            <form class="popup__form" name="edit-profile">
+              <button type='button' class="popup__button-close"></button>
+              <h2 class="popup__title">Редактировать профиль</h2>
+              <input type="text" name ="text" class="popup__input popup__input_name" placeholder="Имя">
+              <input type="text" name ="desription" class="popup__input popup__input_description" placeholder="О себе">
+              <input class="popup__button-save" name ="submitForm" value="Сохранение" type="submit">
+            </form>
+          </div>
+      </div>
   </div>
   <script src="./scripts/script.js"></script>
 </body>
