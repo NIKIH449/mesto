@@ -14,10 +14,3 @@
   opacity: 0.4;
   cursor: pointer;
 }
-
-.element__button-like:active {
-  opacity: 1;
-  background: url(/images/like-active.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  }
