@@ -2,15 +2,15 @@
   width: 358px;
   height: 50px;
   background: #000000;
-  border-radius: 5px;
+  border-radius: 2px;
   color: white;
   margin: 48px 36px 37px 36px;
   padding: 0;
-  }
+}
 
 .popup__button-save:hover {
   transition: 0.1s;
-  opacity: 0.4;
+  opacity: 0.8;
   cursor: pointer;
 }
 
