@@ -5,7 +5,6 @@
   background-image: url(../../../images/close-icon.svg);
   background-color: transparent;
   background-repeat: no-repeat;
-
   width: 32px;
   height: 32px;
   padding: 0;
@@ -14,7 +13,7 @@
 
 .popup__button-close:hover {
   transition: 0.1s;
-  opacity: 0.4;
+  opacity: 0.6;
   cursor: pointer;
 }
 

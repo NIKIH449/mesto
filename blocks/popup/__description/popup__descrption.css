@@ -10,11 +10,11 @@
   font-size: 14px;
   line-height: 17px;
   padding: 0;
-  }
+}
 
-  @media screen and (max-width: 767px) {
-    .popup__desription {
-      width: 238px;
-      margin: 0 22px 45px 22px;
-    }
+@media screen and (max-width: 767px) {
+  .popup__desription {
+    width: 238px;
+    margin: 0 22px 45px 22px;
   }
+}
