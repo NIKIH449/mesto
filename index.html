@@ -27,11 +27,11 @@
           <div class="profile__avatar"></div>
           <div class="profile__profile-info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__button-edit" type="button"></button>
+            <button class="profile__button-edit" aria-label="Редактировать" type="button"></button>
             <p class="profile__description">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__button-plus" type="button"></button>
+        <button class="profile__button-plus" aria-label="Добаить" type="button"></button>
       </section>
       <section class="elements">
         <ul class="elements__list">
@@ -39,42 +39,42 @@
             <img src="./images/ruskeala.jpg" alt="Рускеала" class="element__picture">
             <div class="element__container">
               <h2 class="element__place-name">Рускеала</h2>
-              <button class="element__button-like" type="button"></button>
+              <button class="element__button-like" aria-label="Лайк" type="button"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/kizhi.jpg" alt="Кижи" class="element__picture">
             <div class="element__container">
               <h2 class="element__place-name">Кижи</h2>
-              <button class="element__button-like"></button>
+              <button class="element__button-like" aria-label="Лайк" type="button"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/baikal.jpg" alt="Байкал" class="element__picture">
             <div class="element__container">
               <h2 class="element__place-name">Байкал</h2>
-              <button class="element__button-like"></button>
+              <button class="element__button-like" aria-label="Лайк" type="button"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/lenstolb.jpg" alt="Ленские столбы" class="element__picture">
             <div class="element__container">
               <h2 class="element__place-name">Ленские столбы</h2>
-              <button class="element__button-like"></button>
+              <button class="element__button-like" aria-label="Лайк" type="button"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/derbent.jpg" alt="Дербент" class="element__picture">
             <div class="element__container">
               <h2 class="element__place-name">Дербент</h2>
-              <button class="element__button-like"></button>
+              <button class="element__button-like" aria-label="Лайк" type="button"></button>
             </div>
           </li>
           <li class="element">
             <img src="./images/elbrus.jpg" alt="Эльбрус" class="element__picture">
             <div class="element__container">
               <h2 class="element__place-name">Эльбрус</h2>
-              <button class="element__button-like"></button>
+              <button class="element__button-like" aria-label="Лайк" type="button"></button>
             </div>
           </li>
         </ul>
@@ -89,9 +89,9 @@
             <form class="popup__form" name="edit-profile">
               <button type='button' class="popup__button-close"></button>
               <h2 class="popup__title">Редактировать профиль</h2>
-              <input type="text" name ="text" class="popup__input popup__input_name" placeholder="Имя">
-              <input type="text" name ="desription" class="popup__input popup__input_description" placeholder="О себе">
-              <input class="popup__button-save" name ="submitForm" value="Сохранение" type="submit">
+              <input type="text" name ="text" class="popup__input popup__input_type_name" placeholder="Имя">
+              <input type="text" name ="desription" class="popup__input popup__input_type_desription" placeholder="О себе">
+              <button class="popup__button-save" aria-label="Сохранить" type="submit">Сохранить</button>
             </form>
           </div>
       </div>
