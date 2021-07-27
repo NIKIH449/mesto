@@ -35,48 +35,6 @@
       </section>
       <section class="elements">
         <ul class="elements__list">
-          <li class="element">
-            <img src="./images/ruskeala.jpg" alt="Рускеала" class="element__picture">
-            <div class="element__container">
-              <h2 class="element__place-name">Рускеала</h2>
-              <button class="element__button-like" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/kizhi.jpg" alt="Кижи" class="element__picture">
-            <div class="element__container">
-              <h2 class="element__place-name">Кижи</h2>
-              <button class="element__button-like" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/baikal.jpg" alt="Байкал" class="element__picture">
-            <div class="element__container">
-              <h2 class="element__place-name">Байкал</h2>
-              <button class="element__button-like" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/lenstolb.jpg" alt="Ленские столбы" class="element__picture">
-            <div class="element__container">
-              <h2 class="element__place-name">Ленские столбы</h2>
-              <button class="element__button-like" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/derbent.jpg" alt="Дербент" class="element__picture">
-            <div class="element__container">
-              <h2 class="element__place-name">Дербент</h2>
-              <button class="element__button-like" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="./images/elbrus.jpg" alt="Эльбрус" class="element__picture">
-            <div class="element__container">
-              <h2 class="element__place-name">Эльбрус</h2>
-              <button class="element__button-like" aria-label="Лайк" type="button"></button>
-            </div>
-          </li>
         </ul>
       </section>
 
@@ -100,13 +58,22 @@
           <form class="popup__form" name="add-picture">
             <button type='button' class="popup__button-close popup__button-close_type_add-picture"></button>
             <h2 class="popup__title">Новое место</h2>
-            <input type="text" name ="text" class="popup__input popup__input_type_name" placeholder="Название">
-            <input type="text" name ="desription" class="popup__input popup__input_type_desription" placeholder="Ссылка на картинку">
+            <input type="text" name ="text" class="popup__input popup__input_type_place" placeholder="Название">
+            <input type="text" name ="desription" class="popup__input popup__input_type_picture" placeholder="Ссылка на картинку">
             <button class="popup__button-save" aria-label="Сохранить" type="submit">Создать</button>
           </form>
         </div>
     </div>
   </div>
+  <template class="element__template">
+    <li class="element">
+      <img src="" class="element__picture">
+      <div class="element__container">
+        <h2 class="element__place-name"></h2>
+        <button class="element__button-like" aria-label="Лайк" type="button"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 </html>
