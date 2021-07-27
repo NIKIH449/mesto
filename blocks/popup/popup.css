@@ -8,4 +8,11 @@
   display: none;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+
+}
+
+.popup:hover {
+  opacity: 1;
 }
