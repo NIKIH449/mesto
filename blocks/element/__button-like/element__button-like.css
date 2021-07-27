@@ -7,15 +7,10 @@
   padding: 0;
   border: none;
   align-self: center;
+  transition: 0.1s;
 }
 
 .element__button-like:hover {
-  transition: transform 0.1s ease-in-out;
   opacity: 0.5;
   cursor: pointer;
-}
-
-.element__button-like:active {
-  background-image: url(../../../images/like-active.jpg);
-  opacity: 1;
 }

@@ -9,10 +9,10 @@
   padding: 0;
   border-radius: 2px;
   align-self: center;
+  transition: .3s;
 }
 
 .profile__button-plus:hover {
-  transition: 0.1s;
   opacity: 0.6;
   cursor: pointer;
 }
