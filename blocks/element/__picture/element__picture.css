@@ -4,4 +4,5 @@
   object-fit: cover;
   border-top-left-radius: 3%;
   border-top-right-radius: 3%;
+  cursor: pointer;
 }

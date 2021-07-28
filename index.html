@@ -33,15 +33,27 @@
         </div>
         <button class="profile__button-plus" aria-label="Добаить" type="button"></button>
       </section>
+
       <section class="elements">
         <ul class="elements__list">
         </ul>
+
       </section>
 
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2021 Никита Дружевский</p>
     </footer>
+    <template class="element__template">
+      <li class="element">
+        <button class="element__button-remove" type="button" aria-label="удалить"></button>
+        <img src="" class="element__picture">
+        <div class="element__container">
+          <h2 class="element__place-name"></h2>
+          <button class="element__button-like" aria-label="Лайк" type="button"></button>
+        </div>
+      </li>
+    </template>
         <div class="popup popup_type_edit-profile">
           <div class="popup__container">
             <form class="popup__form" name="edit-profile">
@@ -63,17 +75,14 @@
             <button class="popup__button-save" aria-label="Сохранить" type="submit">Создать</button>
           </form>
         </div>
-    </div>
-  </div>
-  <template class="element__template">
-    <li class="element">
-      <img src="" class="element__picture">
-      <div class="element__container">
-        <h2 class="element__place-name"></h2>
-        <button class="element__button-like" aria-label="Лайк" type="button"></button>
       </div>
-    </li>
-  </template>
+      <div class="popup popup_type_picture">
+        <div class="popup__picture">
+        <button type='button' class="popup__button-close popup__button-close_type_picture"></button>
+        <img class="popup__image" src="#" alt="#">
+        </div>
+      </div>
+  </div>
   <script src="./scripts/script.js"></script>
 </body>
 </html>

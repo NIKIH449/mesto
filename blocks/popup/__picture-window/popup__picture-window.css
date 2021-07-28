@@ -1,0 +1,5 @@
+.popup__picture-window {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
