@@ -5,14 +5,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  display: none;
+  visibility: hidden;
+  display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
   transition: opacity 0.3s linear;
 
-}
-
-.popup:hover {
-  opacity: 1;
 }
