@@ -52,6 +52,31 @@ const initialCards  = [
   }
 ];
 
+//  функционал карточек
+//  функция поставить и убрать карточкам лайк
+function toggleLike (element) {
+  element.querySelector('.element__button-like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('element__button-like_active')
+  });
+};
+
+//  функция удаления карточек
+function removeCard (element) {
+  const cardElement = document.querySelector('.element__button-remove');
+  element.querySelector('.element__button-remove').addEventListener('click', function (evt) {
+    const cardItem = evt.target.closest('.element');
+    cardItem.remove(cardElement);
+  });
+};
+
+// функция открытия попапа с карточкми
+function openBigPicture (element) {
+  element.querySelector('.element__picture').addEventListener('click', function (evt) {
+    formElementBigPicture.classList.add('popup_opened');
+    bigPicture.src = evt.target.getAttribute('src');        //  присваиваем картинке ссылку той, на которую кликнули
+  });
+};
+
 //  функция загруки карточек из массива
 initialCards.forEach(function (element) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
@@ -78,31 +103,6 @@ function cardSabmitHandler (evt) {
   removeCard(cardElement);      //  удаление карточки
   openBigPicture(cardElement);         //  открытие картинки
   closePopupAddPicture ();  //  закрытие попапа
-};
-
-//  функционал карточек
-//  функция поставить и убрать карточкам лайк
-function toggleLike (element) {
-  element.querySelector('.element__button-like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__button-like_active')
-  });
-};
-
-//  функция удаления карточек
-function removeCard (element) {
-  const cardElement = document.querySelector('.element__button-remove');
-  element.querySelector('.element__button-remove').addEventListener('click', function (evt) {
-    const cardItem = evt.target.closest('.element');
-    cardItem.remove(cardElement);
-  });
-};
-
-// функция открытия попапа с карточкми
-function openBigPicture (element) {
-  element.querySelector('.element__picture').addEventListener('click', function (evt) {
-    formElementBigPicture.classList.add('popup_opened');
-    bigPicture.src = evt.target.getAttribute('src');        //  присваиваем картинке ссылку той, на которую кликнули
-  });
 };
 
 //  функция открытия попапа редактирования профиля и передачи значений имени пользователя с описанием профиля в попап
