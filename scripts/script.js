@@ -3,25 +3,24 @@ const page = document.querySelector('.page');
 
 const closeButtonEditProfile = page.querySelector('.popup__button-close_type_edit-profile');
 const closeButtonAddPicture = page.querySelector('.popup__button-close_type_add-picture');
-const closeButtonPicture = page.querySelector('.popup__button-close_type_picture');
+const closeButtonBigPicture = page.querySelector('.popup__button-close_type_picture');
 const formElementEditProfile = page.querySelector('.popup_type_edit-profile');
 const formElementAddPicture = page.querySelector('.popup_type_add-picture');
 const formElementBigPicture = page.querySelector('.popup_type_picture');
 
 const editButton = page.querySelector('.profile__button-edit');
+const plusButton = page.querySelector('.profile__button-plus');
 const profileName = page.querySelector('.profile__name');
 const profileDescription = page.querySelector('.profile__description');
 
 const nameInput = formElementEditProfile.querySelector('.popup__input_type_name');
 const jobInput = formElementEditProfile.querySelector('.popup__input_type_desription');
-const placeInput = page.querySelector('.popup__input_type_place');
-const pictureInput = page.querySelector('.popup__input_type_picture');
+const placeInput = formElementAddPicture.querySelector('.popup__input_type_place');
+const pictureInput = formElementAddPicture.querySelector('.popup__input_type_picture');
+const bigPicture = formElementBigPicture.querySelector('.popup__image');
 
-const plusButton = page.querySelector('.profile__button-plus');
 const cardList = page.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.element__template').content;
-const removeButton = cardList.querySelector('.element__button-remove')
-const bigPicture = document.querySelector('.popup__image');
 
 //добавление карточек при загрузке страници
 const initialCards  = [
@@ -70,10 +69,8 @@ initialCards.forEach(function (element) {
       cardItem.remove();
     });
     cardElement.querySelector('.element__picture').addEventListener('click', function (evt) {  //открытие попапа с картинками карточек
-      const popupPicture = page.querySelector('.popup_type_picture');
-      popupPicture.classList.add('popup_opened');
-      const sourcePiture = evt.target.getAttribute('src');
-      bigPicture.src = sourcePiture;
+      formElementBigPicture.classList.add('popup_opened');
+      bigPicture.src = evt.target.getAttribute('src'); // присваиваем картинке ссылку той, на которую кликнули
     });
     cardList.append(cardElement);  //добавить карточки в конец массива
 });
@@ -85,29 +82,22 @@ function cardSabmitHandler (evt) {
   cardElement.querySelector('.element__place-name').textContent = placeInput.value;
   cardElement.querySelector('.element__picture').src = pictureInput.value;
   cardElement.querySelector('.element__picture').alt = placeInput.value;
-  cardElement.querySelector('.element__button-like').addEventListener('click', function (evt) {  //возможность поставить новым карточкам лайк
-    evt.target.classList.toggle('element__button-like_active') })
-    cardElement.querySelector('.element__button-remove').addEventListener('click', function (evt) {  //удаление карточек
+  cardElement.querySelector('.element__button-like').addEventListener('click', function (evt) { //возможность поставить новым карточкам лайк
+    evt.target.classList.toggle('element__button-like_active') });
+    cardElement.querySelector('.element__button-remove').addEventListener('click', function (evt) {  // удаление новых карточек
       const cardItem = evt.target.closest('.element');
       cardItem.remove();
     });
-  cardElement.querySelector('.element__picture').addEventListener('click', function (evt) {  //открытие попапа с картинками у новых карточек
-    const popupPicture = page.querySelector('.popup_type_picture');
-    const sourcePiture = evt.target.getAttribute('src')
-    bigPicture.src = sourcePiture;
-    popupPicture.classList.add('popup_opened')
+  cardElement.querySelector('.element__picture').addEventListener('click', function (evt) {  // открытие попапа с картинками у новых карточек
+    formElementBigPicture.classList.add('popup_opened');
+    bigPicture.src = evt.target.getAttribute('src'); // присваиваем картинке ссылку той, на которую кликнули
   });
   cardList.prepend(cardElement); //добавить карточки в начало массива
-  placeInput.value = ''; //обмнулить значения инпутов
+  placeInput.value = ''; // обнулить значения инпутов
   pictureInput.value = '';
-  closePopupAddPicture ();
+  closePopupAddPicture (); // закрытие попапа
 };
 
-function like (evt) {
-  const removeButton = document.querySelector('.element__button-remove');
-      const cardItem = removeButton.closest('.element')
-      cardItem.remove();
-}
 // функция открытия попапа редактирования профиля и передачи значений имени пользователя с описанием профиля в попап
 function showPopupEditProfile () {
   nameInput.value = profileName.textContent;
@@ -128,7 +118,7 @@ function formSubmitHandler (evt) {
   closePopupEditProfile ();
 };
 
-// функция отрытия попапа добавления карточек
+// функция открытия попапа добавления карточек
 function showPopupAddPicture () {
   formElementAddPicture.classList.add('popup_opened');
 };
@@ -138,16 +128,8 @@ function closePopupAddPicture () {
   formElementAddPicture.classList.remove('popup_opened');
 };
 
-//функция удаления карточки
-page.querySelector('.element__button-remove').addEventListener('click', function (evt) {
-  evt.target.remove('.element__button-remove');
-});
-
-// функция отрытия попапа c картинкой
-
-
 // функция закрытия попапа c картинкой
-function closePopipBigPicture() {
+function closePopupBigPicture() {
   formElementBigPicture.classList.remove('popup_opened');
 };
 
@@ -158,4 +140,5 @@ closeButtonEditProfile.addEventListener('click', closePopupEditProfile);
 closeButtonAddPicture.addEventListener('click', closePopupAddPicture);
 formElementEditProfile.addEventListener('submit', formSubmitHandler);
 formElementAddPicture.addEventListener('submit', cardSabmitHandler);
-formElementBigPicture.addEventListener('click', closePopipBigPicture);
+closeButtonBigPicture.addEventListener('click', closePopupBigPicture);
+
