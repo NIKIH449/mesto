@@ -15,9 +15,9 @@ const jobInput = formElementEditProfile.querySelector('.popup__input_type_desrip
 const placeInput = formElementAddPicture.querySelector('.popup__input_type_place');
 const pictureInput = formElementAddPicture.querySelector('.popup__input_type_picture');
 const bigPicture = formElementBigPicture.querySelector('.popup__image');
+const pictureDescription = formElementBigPicture.querySelector('.popup__picture-description')
 const cardList = page.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.element__template').content;
-
 //  массив карточек, которые добавляются при загрузке страницы
 const initialCards  = [
   {
@@ -73,7 +73,9 @@ function removeCard (element) {
 function openBigPicture (element) {
   element.querySelector('.element__picture').addEventListener('click', function (evt) {
     formElementBigPicture.classList.add('popup_opened');
-    bigPicture.src = evt.target.getAttribute('src');        //  присваиваем картинке ссылку той, на которую кликнули
+    bigPicture.src = evt.target.getAttribute('src');
+    const pictureName = document.querySelector('.popup__picture-description')   //  присваиваем картинке ссылку той, на которую кликнули
+    pictureDescription.textContent = element.textContent //  описание картинки
   });
 };
 
