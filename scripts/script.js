@@ -6,7 +6,6 @@ const closeButtonBigPicture = page.querySelector('.popup__button-close_type_pict
 const formElementEditProfile = page.querySelector('.popup_type_edit-profile');
 const formElementAddPicture = page.querySelector('.popup_type_add-picture');
 const formElementBigPicture = page.querySelector('.popup_type_picture');
-const popup = page.querySelector('.popup')
 const editButton = page.querySelector('.profile__button-edit');
 const plusButton = page.querySelector('.profile__button-plus');
 const profileName = page.querySelector('.profile__name');
