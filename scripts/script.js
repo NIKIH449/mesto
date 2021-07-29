@@ -69,12 +69,11 @@ function removeCard (element) {
   });
 };
 
-// функция открытия попапа с карточкми
+// функция открытия попапа с карточками
 function openBigPicture (element) {
   element.querySelector('.element__picture').addEventListener('click', function (evt) {
     formElementBigPicture.classList.add('popup_opened');
     bigPicture.src = evt.target.getAttribute('src');
-    const pictureName = document.querySelector('.popup__picture-description')   //  присваиваем картинке ссылку той, на которую кликнули
     pictureDescription.textContent = element.textContent //  описание картинки
   });
 };
