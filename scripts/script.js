@@ -18,6 +18,7 @@ const bigPicture = formElementBigPicture.querySelector('.popup__image');
 const pictureDescription = formElementBigPicture.querySelector('.popup__picture-description')
 const cardList = page.querySelector('.elements__list');
 const cardTemplate = document.querySelector('.element__template').content;
+
 //  массив карточек, которые добавляются при загрузке страницы
 const initialCards  = [
   {
