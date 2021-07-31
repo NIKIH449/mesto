@@ -26,11 +26,11 @@
           <div class="profile__avatar"></div>
           <div class="profile__profile-info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__button-edit" aria-label="Редактировать" type="button"></button>
+            <button class="profile__button profile__button_type_edit" aria-label="Редактировать" type="button"></button>
             <p class="profile__description">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__button-plus" aria-label="Добаить" type="button"></button>
+        <button class="profile__button profile__button_type_plus" aria-label="Добаить" type="button"></button>
       </section>
 
       <section class="elements">
@@ -42,7 +42,7 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2021 Никита Дружевский</p>
     </footer>
-    <template class="element__template">
+    <template id="element__template">
       <li class="element">
         <button class="element__button-remove" type="button" aria-label="удалить"></button>
         <img src="#" class="element__picture">
@@ -68,8 +68,8 @@
           <form class="popup__form" name="add-picture">
             <button type='button' class="popup__button-close popup__button-close_type_add-picture"></button>
             <h2 class="popup__title">Новое место</h2>
-            <input type="text" name ="text" class="popup__input popup__input_type_place" placeholder="Название">
-            <input type="text" name ="desription" class="popup__input popup__input_type_picture" placeholder="Ссылка на картинку">
+            <input type="text" name="text" class="popup__input popup__input_type_place" placeholder="Название">
+            <input type="url" name="url" class="popup__input popup__input_type_picture" placeholder="Ссылка на картинку">
             <button class="popup__button-save" aria-label="Сохранить" type="submit">Создать</button>
           </form>
         </div>
