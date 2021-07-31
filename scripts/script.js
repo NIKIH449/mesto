@@ -50,6 +50,7 @@ const initialCards  = [
   }
 ];
 
+//  возможности страницы
 //  функция поставить и убрать карточкам лайк
 function toggleLike (element) {
   element.querySelector('.element__button-like').addEventListener('click', (e) => {
@@ -66,7 +67,7 @@ function removeCard (element) {
   });
 };
 
-// функция создания карточки
+//  функция создания карточки
 function createCard(name, link) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   cardElement.querySelector('.element__place-name').textContent =  name;
@@ -78,6 +79,7 @@ function createCard(name, link) {
   return cardElement;
 };
 
+//  загрузки карточек
 //  функция загруки карточек из массива
 initialCards.forEach(element => {
   const cardElement = createCard(element.name, element.link);
@@ -93,6 +95,13 @@ function renderCard(e) {
   savePopup(e);  // сохраняем
 };
 
+//  открытие, редактирование, сохранине, закрытие
+//  функция открытия попапов
+function openPopup(popup) {
+  if (popup.classList.contains('popup_opened') === false);
+    popup.classList.add('popup_opened');
+};
+
 //  функция редактирования и сохранения имени пользователя и описания профиля
 function formSubmitHandler (e) {
   e.preventDefault();
@@ -101,15 +110,24 @@ function formSubmitHandler (e) {
   savePopup(e);  // сохраняем
 };
 
-// функция открытия попапов
-function openPopup(popup) {
-  if (popup.classList.contains('popup_opened') === false);
-    popup.classList.add('popup_opened');
-  };
+//  функция сохранения попапов
+function savePopup (e) {
+  e.target.closest('.popup').classList.remove('popup_opened');
+};
 
+//  функции закрытия попапов
+function closePopup(popup) {
+  popup.querySelector('.popup__button-close').addEventListener('click', (e) => {
+      const closeButton = e.target.closest('.popup');
+      closeButton.classList.remove('popup_opened');
+    });
+};
+
+// функционал попапов
 //  функционал попапа добавления карточки
 function showPopupAddPicture () {
   openPopup(formElementAddPicture);
+  closePopup(formElementAddPicture);
 };
 
 //  функционал попапа редактирования
@@ -128,23 +146,8 @@ function openBigPicture (element) {
     bigPicture.alt = e.target.getAttribute('alt');
     pictureDescription.textContent = element.textContent; //  описание картинки
     formElementBigPicture.setAttribute('style', 'background-color: rgb(0, 0, 0, .9)'); // затемняем фон
+    closePopup(formElementBigPicture);
   });
-};
-
-//  функции закрытия попапов
-function closePopup(popup) {
-  popup.querySelector('.popup__button-close').addEventListener('click', (e) => {
-      const closeButton = e.target.closest('.popup');
-      closeButton.classList.remove('popup_opened');
-    });
-  };
-
-closePopup(formElementAddPicture);
-closePopup(formElementBigPicture);
-
-// функция сохранения попапов
-function savePopup (e) {
-  e.target.closest('.popup').classList.remove('popup_opened');
 };
 
 //  обработчики событий
