@@ -118,9 +118,9 @@ function savePopup (e) {
 //  функции закрытия попапов
 function closePopup(popup) {
   popup.querySelector('.popup__button-close').addEventListener('click', (e) => {
-      const closeButton = e.target.closest('.popup');
-      closeButton.classList.remove('popup_opened');
-    });
+    const closeButton = e.target.closest('.popup');
+    closeButton.classList.remove('popup_opened');
+  });
 };
 
 // функционал попапов
