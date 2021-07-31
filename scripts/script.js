@@ -98,8 +98,7 @@ function renderCard(e) {
 //  открытие, редактирование, сохранине, закрытие
 //  функция открытия попапов
 function openPopup(popup) {
-  if (popup.classList.contains('popup_opened') === false);
-    popup.classList.add('popup_opened');
+  popup.classList.add('popup_opened');
 };
 
 //  функция редактирования и сохранения имени пользователя и описания профиля
