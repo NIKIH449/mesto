@@ -7,7 +7,6 @@ const closeButtonEditProfile = page.querySelector('.popup__button-close_type_edi
 const closeButtonAddPicture = page.querySelector('.popup__button-close_type_add-picture');
 const closeButtonBigPicture = page.querySelector('.popup__button-close_type_picture');
 const buttonSaveEditProfile = formElementEditProfile.querySelector('.popup__button-save_type-edit-profile');
-const buttonSaveAddPicture = formElementAddPicture.querySelector('.popup__button-save_type_add-picture');
 const placeInput = formElementAddPicture.querySelector('.popup__input_type_place');
 const pictureInput = formElementAddPicture.querySelector('.popup__input_type_picture');
 const nameInput = formElementEditProfile.querySelector('.popup__input_type_name');
