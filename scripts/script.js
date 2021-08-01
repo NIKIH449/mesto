@@ -144,7 +144,10 @@ closeButtonEditProfile.addEventListener('click', () => {
 });
 
 //  кнопка сохранить попапа редактирования профиля
-buttonSaveEditProfile.addEventListener('click', () => {
+buttonSaveEditProfile.addEventListener('click', (e) => {
+  e.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileDescription.textContent = jobInput.value;
   closePopup(formElementEditProfile);
 });
 
