@@ -117,6 +117,7 @@ function renderCard(e) {
   const cardElement = createCard(placeInput.value, pictureInput.value);
   cardList.prepend(cardElement);  //  добавляем карточки в начало
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
+  closePopup(formElementAddPicture);
 };
 
 //  открытие, редактирование, сохранине, закрытие
@@ -145,15 +146,10 @@ closeButtonEditProfile.addEventListener('click', () => {
 
 //  кнопка сохранить попапа редактирования профиля
 buttonSaveEditProfile.addEventListener('click', (e) => {
-  e.preventDefault()
+  e.preventDefault();
   profileName.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
   closePopup(formElementEditProfile);
-});
-
-//  кнопка сохранить попапа добавления картинки
-buttonSaveAddPicture.addEventListener('click', () => {
-  closePopup(formElementAddPicture);
 });
 
 //  кнопка добавить картинку
