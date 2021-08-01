@@ -115,7 +115,6 @@ function renderCard(e) {
   e.preventDefault();
   const cardElement = createCard(placeInput.value, pictureInput.value);
   cardList.prepend(cardElement);  //  добавляем карточки в начало
-  formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
   closePopup(formElementAddPicture);
 };
 
@@ -153,6 +152,7 @@ buttonSaveEditProfile.addEventListener('click', (e) => {
 
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
+  formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
   openPopup(formElementAddPicture);
 });
 
