@@ -79,7 +79,6 @@ function openBigPicture (element) {
     bigPicture.src = e.target.getAttribute('src');
     bigPicture.alt = e.target.getAttribute('alt');
     pictureDescription.textContent = element.textContent; //  описание картинки
-    formElementBigPicture.setAttribute('style', 'background-color: rgb(0, 0, 0, .9)'); // затемняем фон
   });
 };
 
@@ -164,7 +163,7 @@ closeButtonAddPicture.addEventListener('click', () => {
   closePopup(formElementAddPicture);
 });
 
-//  кнопка закрытия попапап большой картинки
+//  кнопка закрытия попапа большой картинки
 closeButtonBigPicture.addEventListener('click', () => {
   closePopup(formElementBigPicture);
 });
