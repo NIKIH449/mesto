@@ -95,16 +95,6 @@ function createCard(name, link) {
   return cardElement;
 };
 
-//  функцонал попапа с картинкой
-function openBigPicture (element) {
-  element.querySelector('.element__picture').addEventListener('click', (e) => {
-    openPopup(formElementBigPicture);
-    bigPicture.src = e.target.getAttribute('src');
-    bigPicture.alt = e.target.getAttribute('alt');
-    pictureDescription.textContent = element.textContent; //  описание картинки
-  });
-};
-
 //  загрузки карточек
 //  функция загруки карточек из массива
 initialCards.forEach(element => {
@@ -120,7 +110,6 @@ function renderCard(e) {
   closePopup(formElementAddPicture);
 };
 
-//  открытие, редактирование, сохранине, закрытие
 //  функция открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
