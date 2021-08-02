@@ -84,9 +84,11 @@ function openBigPicture (element) {
 //  функция создания карточки
 function createCard(name, link) {
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  cardElement.querySelector('.element__place-name').textContent =  name;
-  cardElement.querySelector('.element__picture').src =  link;
-  cardElement.querySelector('.element__picture').alt = name;
+  const cardName = cardElement.querySelector('.element__place-name');
+  const cardPicture = cardElement.querySelector('.element__picture');
+  cardName.textContent =  name;
+  cardPicture.src = link;
+  cardPicture.alt = name;
   toggleLike(cardElement);       // лайки
   removeCard(cardElement);       //  удаление карточки
   openBigPicture(cardElement);   //  открытие картинки
