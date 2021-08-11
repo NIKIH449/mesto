@@ -54,7 +54,7 @@
     </template>
         <div class="popup popup_type_edit-profile">
           <div class="popup__container">
-            <form class="popup__form" name="edit-profile">
+            <form class="popup__form" name="edit">
               <button type='button' class="popup__button-close popup__button-close_type_edit-profile"></button>
               <h2 class="popup__title">Редактировать профиль</h2>
               <input type="text" name ="text" class="popup__input popup__input_type_name" placeholder="Имя">
@@ -65,11 +65,11 @@
       </div>
       <div class="popup popup_type_add-picture">
         <div class="popup__container">
-          <form class="popup__form" name="add-picture">
+          <form class="popup__form" name="add" novalidate>
             <button type='button' class="popup__button-close popup__button-close_type_add-picture"></button>
             <h2 class="popup__title">Новое место</h2>
-            <input type="text" name="text" class="popup__input popup__input_type_place" placeholder="Название">
-            <input type="url" name="url" class="popup__input popup__input_type_picture" placeholder="Ссылка на картинку">
+            <input type="text" name="text" class="popup__input popup__input_type_place" placeholder="Название" required minlength="2" maxlength="40">
+            <input type="url" name="url" class="popup__input popup__input_type_picture" placeholder="Ссылка на картинку" required minlength="2" maxlength="200">
             <button class="popup__button-save popup__button-save_type_add-picture" aria-label="Сохранить" type="submit">Создать</button>
           </form>
         </div>
@@ -82,6 +82,7 @@
         </div>
       </div>
   </div>
+  <script src="./scripts/initialCards.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 </html>

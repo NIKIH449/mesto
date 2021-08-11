@@ -20,39 +20,6 @@ const profileDescription = page.querySelector('.profile__description');
 const cardList = page.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#element__template').content;
 
-//  массив карточек, которые добавляются при загрузке страницы
-const initialCards  = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    alt: 'Архыз'
-  },
-  {
-    name: 'Гора Эльбрус',
-    link: 'https://images.unsplash.com/photo-1626518139514-65676cf25bac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    alt: 'Гора Эльбрус'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    alt: 'Иваново'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    alt: 'Камчатка'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    alt: 'Холмогорский район'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    alt: 'Байкал'
-  }
-];
 
 //  возможности страницы
 //  функция поставить и убрать карточкам лайк
@@ -141,6 +108,21 @@ buttonSaveEditProfile.addEventListener('click', (e) => {
   closePopup(formElementEditProfile);
 });
 
+function keyHandler(e) {
+  if (e.key === "q") {
+    console.log('q')
+  }
+  closePopup(formElementEditProfile);
+  closePopup(formElementAddPicture);
+  closePopup(formElementBigPicture);
+}
+
+function closeOverlay(e) {
+  if (e.target.classList.contains('popup')) {
+  }
+  e.target.classList.remove('popup_opened')
+}
+
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
@@ -156,6 +138,7 @@ closeButtonAddPicture.addEventListener('click', () => {
 closeButtonBigPicture.addEventListener('click', () => {
   closePopup(formElementBigPicture);
 });
-
 //  создание карточки
 formElementAddPicture.addEventListener('submit', renderCard);
+document.addEventListener('click', closeOverlay);
+document.addEventListener('keydown', keyHandler);
