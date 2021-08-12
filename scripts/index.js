@@ -19,7 +19,7 @@ const profileName = page.querySelector('.profile__name');
 const profileDescription = page.querySelector('.profile__description');
 const cardList = page.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#element__template').content;
-
+const formSelector = document.querySelector('.popup__form')
 
 //  возможности страницы
 //  функция поставить и убрать карточкам лайк
@@ -80,11 +80,14 @@ function renderCard(e) {
 //  функция открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', keyHandler)
 };
 
 //  функции закрытия попапов
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', keyHandler);
+
 };
 
 //  обработчики событий
@@ -92,8 +95,10 @@ function closePopup(popup) {
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
+  enableSubmitButton(buttonSaveEditProfile);
+  resetValidation()
   openPopup(formElementEditProfile);
-});
+})
 
 //  кнопка закрытия попапа редактирования профиля
 closeButtonEditProfile.addEventListener('click', () => {
@@ -109,23 +114,23 @@ buttonSaveEditProfile.addEventListener('click', (e) => {
 });
 
 function keyHandler(e) {
-  if (e.key === "q") {
-    console.log('q')
+  if (e.key === "Escape") {
+    closePopup(formElementEditProfile);
+    closePopup(formElementAddPicture);
+    closePopup(formElementBigPicture);
   }
-  closePopup(formElementEditProfile);
-  closePopup(formElementAddPicture);
-  closePopup(formElementBigPicture);
 }
 
 function closeOverlay(e) {
   if (e.target.classList.contains('popup')) {
+    e.target.classList.remove('popup_opened')
   }
-  e.target.classList.remove('popup_opened')
 }
 
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
+  resetValidation();
   openPopup(formElementAddPicture);
 });
 
@@ -141,4 +146,4 @@ closeButtonBigPicture.addEventListener('click', () => {
 //  создание карточки
 formElementAddPicture.addEventListener('submit', renderCard);
 document.addEventListener('click', closeOverlay);
-document.addEventListener('keydown', keyHandler);
+
