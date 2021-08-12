@@ -19,7 +19,6 @@ const profileName = page.querySelector('.profile__name');
 const profileDescription = page.querySelector('.profile__description');
 const cardList = page.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#element__template').content;
-const formSelector = document.querySelector('.popup__form')
 
 //  возможности страницы
 //  функция поставить и убрать карточкам лайк
@@ -80,23 +79,39 @@ function renderCard(e) {
 //  функция открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', keyHandler)
+  document.addEventListener('keydown', keyHandler) //  добавляем слушатель для закрытия кнопкой
 };
 
 //  функции закрытия попапов
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', keyHandler);
-
+  document.removeEventListener('keydown', keyHandler); //  удаляем слущатель для закрытия кнопкой
 };
+
+//  функция закрытия попапов эскейпом
+function keyHandler(e) {
+  if (e.key === "Escape") {
+    const popupList = Array.from(document.querySelectorAll('.popup'))
+    popupList.forEach((popup) => {
+      popup.classList.remove('popup_opened');
+    })
+  }
+}
+
+// функция закрытия попапа кликом по оверлею
+function closeOverlay(e) {
+  if (e.target.classList.contains('popup')) {
+    e.target.classList.remove('popup_opened')
+  }
+}
 
 //  обработчики событий
 //  кнопка редактирования профиля
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
-  enableSubmitButton(buttonSaveEditProfile);
-  resetValidation()
+  enableSubmitButton(buttonSaveEditProfile);  //  включаем кнопку сохраниня
+  resetValidation()  //  сбрасываем значения спанов
   openPopup(formElementEditProfile);
 })
 
@@ -113,24 +128,10 @@ buttonSaveEditProfile.addEventListener('click', (e) => {
   closePopup(formElementEditProfile);
 });
 
-function keyHandler(e) {
-  if (e.key === "Escape") {
-    closePopup(formElementEditProfile);
-    closePopup(formElementAddPicture);
-    closePopup(formElementBigPicture);
-  }
-}
-
-function closeOverlay(e) {
-  if (e.target.classList.contains('popup')) {
-    e.target.classList.remove('popup_opened')
-  }
-}
-
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
-  resetValidation();
+  resetValidation();  //  сбрасываем значения спанов
   openPopup(formElementAddPicture);
 });
 
@@ -143,7 +144,9 @@ closeButtonAddPicture.addEventListener('click', () => {
 closeButtonBigPicture.addEventListener('click', () => {
   closePopup(formElementBigPicture);
 });
+
 //  создание карточки
 formElementAddPicture.addEventListener('submit', renderCard);
-document.addEventListener('click', closeOverlay);
 
+//  закрытие попапа по клику на оверлей
+document.addEventListener('mousedown', closeOverlay);

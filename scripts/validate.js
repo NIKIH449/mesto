@@ -17,12 +17,13 @@ const hideInputError = (formSelector, inputSelector) => {
 // проверка валидности поля
 const checkInputValidity = (formSelector, inputSelector) => {
   if (!inputSelector.validity.valid) {
-    showInputError(formSelector, inputSelector, inputSelector.validationMessage);
+    showInputError(formSelector, inputSelector, inputSelector.validationMessage);  //  если невалидно добавляем классы, которые показывают ошибку
   } else {
-    hideInputError(formSelector, inputSelector);
+    hideInputError(formSelector, inputSelector);  //  если валидно удаляем эти классы
   }
 };
 
+//  функцияя сброса значений у инпутов и спанов
 function resetValidation () {
   const formList = document.querySelectorAll('.popup__form')
   formList.forEach((formSelector) => {
@@ -37,6 +38,7 @@ function resetValidation () {
     })
 }
 
+//  задаем слушатели
 function setEventListeners(formSelector) {
   const inputList = Array.from(formSelector.querySelectorAll('.popup__input'));
   const submitButtonSelector = formSelector.querySelector('.popup__button-save');
@@ -48,40 +50,45 @@ function setEventListeners(formSelector) {
       });
     });
   }
-  function enableValidation() {
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
-    formList.forEach((formSelector) => {
-      formSelector.addEventListener('submit', (e) => {
-        e.preventDefault();
-      })
-      const fieldsetList = Array.from(formSelector.querySelectorAll('.popup__set'));
-      fieldsetList.forEach((fieldSet) => {
-      setEventListeners(fieldSet);
-      });
-    });
-  };
 
-  enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button-save',
-    inputErrorClass: 'popup__input_type_error',
+function enableValidation() { //  сбрасываем стандартное поведение браузера
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach((formSelector) => {
+    formSelector.addEventListener('submit', (e) => {
+      e.preventDefault();
+    })
+    const fieldsetList = Array.from(formSelector.querySelectorAll('.popup__set'));
+    fieldsetList.forEach((fieldSet) => {
+    setEventListeners(fieldSet);
+    });
   });
+};
 
-  function enableSubmitButton(submitButtonSelector) {
-    submitButtonSelector.classList.remove('popup__button-save_disabled')
-  }
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inputErrorClass: 'popup__input_type_error',
+});
 
-  function hasInvalidInput(inputList) {
-    return inputList.some((inputSelector) => {
-      return !inputSelector.validity.valid;
-    });
-  }
 
-  function toggleButtonState(inputList, submitButtonSelector) {
-    if (hasInvalidInput(inputList)) {
-      submitButtonSelector.classList.add('popup__button-save_disabled')
-    } else {
-      submitButtonSelector.classList.remove('popup__button-save_disabled')
-    }
+//  включаем кнопку сабмита
+function enableSubmitButton(submitButtonSelector) {
+  submitButtonSelector.classList.remove('popup__button-save_disabled');
+}
+
+//  задаем массив полей
+function hasInvalidInput(inputList) {
+  return inputList.some((inputSelector) => {
+    return !inputSelector.validity.valid;
+  });
+}
+
+//  фукцния изменения кнопки сабмита
+function toggleButtonState(inputList, submitButtonSelector) {
+  if (hasInvalidInput(inputList)) {
+    submitButtonSelector.classList.add('popup__button-save_disabled');
+  } else {
+    submitButtonSelector.classList.remove('popup__button-save_disabled');
   }
+}
