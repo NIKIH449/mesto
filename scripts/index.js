@@ -20,7 +20,6 @@ const profileDescription = page.querySelector('.profile__description');
 const cardList = page.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#element__template').content;
 
-
 //  возможности страницы
 //  функция поставить и убрать карточкам лайк
 function toggleLike (element) {
@@ -80,18 +79,59 @@ function renderCard(e) {
 //  функция открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', keyHandler) //  добавляем слушатель для закрытия кнопкой
 };
 
 //  функции закрытия попапов
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', keyHandler); //  удаляем слущатель для закрытия кнопкой
 };
+
+//  функция закрытия попапов эскейпом
+function keyHandler(e) {
+  if (e.key === "Escape") {
+    const popupList = Array.from(document.querySelectorAll('.popup'))
+    popupList.forEach((popup) => {
+      closePopup(popup);
+    });
+  };
+};
+
+// функция закрытия попапа кликом по оверлею
+function closeOverlay(e) {
+  if (e.target.classList.contains('popup')) {
+    e.target.classList.remove('popup_opened')
+  };
+};
+
+//  функцияя сброса значений у инпутов и спанов, срабатывает при открытии попапа
+//function resetInputError () {
+//  const formList = document.querySelectorAll('.popup__form'); //  получаем массив форм
+//  formList.forEach((formSelector) => {
+//    const inputErrorList = Array.from(formSelector.querySelectorAll('.popup__input-error')); //  для каждой формы получаем массив спанов
+//    inputErrorList.forEach((errorElement) => {
+//      errorElement.textContent= ' '; //  очищаем каждый спан
+//    });
+//    const inputList = Array.from(formSelector.querySelectorAll('.popup__input')); //  получаем массив инпутов
+//    inputList.forEach((inputSelector) => {
+//      inputSelector.classList.remove('popup__input_type_error');  // у каждого инпута удаляем класс с ошибкой
+//    });
+//  });
+//};
+//
+////  включаем кнопку сабмита, срабатывает при открытии попапа
+//function enableSubmitButton(submitButtonSelector) {
+//  submitButtonSelector.classList.remove('popup__button-save_disabled');
+//};
 
 //  обработчики событий
 //  кнопка редактирования профиля
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
+  resetInputError();  //  сбрасываем значения спанов
+  enableSubmitButton(buttonSaveEditProfile); //  включаем кнопку
   openPopup(formElementEditProfile);
 });
 
@@ -108,24 +148,10 @@ buttonSaveEditProfile.addEventListener('click', (e) => {
   closePopup(formElementEditProfile);
 });
 
-function keyHandler(e) {
-  if (e.key === "q") {
-    console.log('q')
-  }
-  closePopup(formElementEditProfile);
-  closePopup(formElementAddPicture);
-  closePopup(formElementBigPicture);
-}
-
-function closeOverlay(e) {
-  if (e.target.classList.contains('popup')) {
-  }
-  e.target.classList.remove('popup_opened')
-}
-
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
+  resetInputError();  //  сбрасываем значения спанов
   openPopup(formElementAddPicture);
 });
 
@@ -138,7 +164,9 @@ closeButtonAddPicture.addEventListener('click', () => {
 closeButtonBigPicture.addEventListener('click', () => {
   closePopup(formElementBigPicture);
 });
+
 //  создание карточки
 formElementAddPicture.addEventListener('submit', renderCard);
-document.addEventListener('click', closeOverlay);
-document.addEventListener('keydown', keyHandler);
+
+//  закрытие попапа по клику на оверлей
+document.addEventListener('mousedown', closeOverlay);
