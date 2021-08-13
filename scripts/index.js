@@ -105,12 +105,32 @@ function closeOverlay(e) {
   };
 };
 
+//  функцияя сброса значений у инпутов и спанов, срабатывает при открытии попапа
+//function resetInputError () {
+//  const formList = document.querySelectorAll('.popup__form'); //  получаем массив форм
+//  formList.forEach((formSelector) => {
+//    const inputErrorList = Array.from(formSelector.querySelectorAll('.popup__input-error')); //  для каждой формы получаем массив спанов
+//    inputErrorList.forEach((errorElement) => {
+//      errorElement.textContent= ' '; //  очищаем каждый спан
+//    });
+//    const inputList = Array.from(formSelector.querySelectorAll('.popup__input')); //  получаем массив инпутов
+//    inputList.forEach((inputSelector) => {
+//      inputSelector.classList.remove('popup__input_type_error');  // у каждого инпута удаляем класс с ошибкой
+//    });
+//  });
+//};
+//
+////  включаем кнопку сабмита, срабатывает при открытии попапа
+//function enableSubmitButton(submitButtonSelector) {
+//  submitButtonSelector.classList.remove('popup__button-save_disabled');
+//};
+
 //  обработчики событий
 //  кнопка редактирования профиля
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
-  resetValidation();  //  сбрасываем значения спанов
+  resetInputError();  //  сбрасываем значения спанов
   enableSubmitButton(buttonSaveEditProfile); //  включаем кнопку
   openPopup(formElementEditProfile);
 });
@@ -131,7 +151,7 @@ buttonSaveEditProfile.addEventListener('click', (e) => {
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
-  resetValidation();  //  сбрасываем значения спанов
+  resetInputError();  //  сбрасываем значения спанов
   openPopup(formElementAddPicture);
 });
 

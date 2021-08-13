@@ -11,7 +11,7 @@ const hideInputError = (formSelector, inputSelector, object) => {
   const errorElement = formSelector.querySelector(`.${inputSelector.id}-error`);
   inputSelector.classList.remove(object.inputErrorClass);
   errorElement.classList.remove(object.spanErrorClassActive);
-  errorElement.textContent= ' ';
+  errorElement.textContent= '';
 };
 
 // проверка валидности поля
@@ -21,26 +21,6 @@ const checkInputValidity = (formSelector, inputSelector, object) => {
   } else {
     hideInputError(formSelector, inputSelector, object);  //  если валидно удаляем эти классы
   }
-};
-
-//  функцияя сброса значений у инпутов и спанов, срабатывает при открытии попапа
-function resetValidation () {
-  const formList = document.querySelectorAll('.popup__form'); //  получаем массив форм
-  formList.forEach((formSelector) => {
-    const inputErrorList = Array.from(formSelector.querySelectorAll('.popup__input-error')); //  для каждой формы получаем массив спанов
-    inputErrorList.forEach((errorElement) => {
-      errorElement.textContent= ' '; //  очищаем каждый спан
-    });
-    const inputList = Array.from(formSelector.querySelectorAll('.popup__input')); //  получаем массив инпутов
-    inputList.forEach((inputSelector) => {
-      inputSelector.classList.remove('popup__input_type_error');  // у каждого инпута удаляем класс с ошибкой
-    });
-  });
-};
-
-//  включаем кнопку сабмита, срабатывает при открытии попапа
-function enableSubmitButton(submitButtonSelector) {
-  submitButtonSelector.classList.remove('popup__button-save_disabled');
 };
 
 //  задаем слушатели
