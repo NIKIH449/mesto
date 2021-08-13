@@ -93,27 +93,27 @@ function keyHandler(e) {
   if (e.key === "Escape") {
     const popupList = Array.from(document.querySelectorAll('.popup'))
     popupList.forEach((popup) => {
-      popup.classList.remove('popup_opened');
-    })
-  }
-}
+      closePopup(popup);
+    });
+  };
+};
 
 // функция закрытия попапа кликом по оверлею
 function closeOverlay(e) {
   if (e.target.classList.contains('popup')) {
     e.target.classList.remove('popup_opened')
-  }
-}
+  };
+};
 
 //  обработчики событий
 //  кнопка редактирования профиля
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
-  enableSubmitButton(buttonSaveEditProfile);  //  включаем кнопку сохраниня
-  resetValidation()  //  сбрасываем значения спанов
+  resetValidation();  //  сбрасываем значения спанов
+  enableSubmitButton(buttonSaveEditProfile); //  включаем кнопку
   openPopup(formElementEditProfile);
-})
+});
 
 //  кнопка закрытия попапа редактирования профиля
 closeButtonEditProfile.addEventListener('click', () => {

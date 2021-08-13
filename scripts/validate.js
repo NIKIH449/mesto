@@ -1,83 +1,86 @@
 //  добавляем класс ошибки
-const showInputError = (formSelector, inputSelector, errorMessage) => {
-  const errorElement = formSelector.querySelector(`.${inputSelector.id}-error`)
-  inputSelector.classList.add('popup__input_type_error');
+const showInputError = (formSelector, inputSelector, errorMessage, object) => {
+  const errorElement = formSelector.querySelector(`.${inputSelector.id}-error`);
+  inputSelector.classList.add(object.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_active');
+  errorElement.classList.add(object.spanErrorClassActive);
 };
 
 //  убираем класс ошибки
-const hideInputError = (formSelector, inputSelector) => {
-  const errorElement = formSelector.querySelector(`.${inputSelector.id}-error`)
-  inputSelector.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('popup__input-error_active');
-  errorElement.textContent= ' '
+const hideInputError = (formSelector, inputSelector, object) => {
+  const errorElement = formSelector.querySelector(`.${inputSelector.id}-error`);
+  inputSelector.classList.remove(object.inputErrorClass);
+  errorElement.classList.remove(object.spanErrorClassActive);
+  errorElement.textContent= ' ';
 };
 
 // проверка валидности поля
-const checkInputValidity = (formSelector, inputSelector) => {
+const checkInputValidity = (formSelector, inputSelector, object) => {
   if (!inputSelector.validity.valid) {
-    showInputError(formSelector, inputSelector, inputSelector.validationMessage);  //  если невалидно добавляем классы, которые показывают ошибку
+    showInputError(formSelector, inputSelector, inputSelector.validationMessage, object);  //  если невалидно добавляем классы, которые показывают ошибку
   } else {
-    hideInputError(formSelector, inputSelector);  //  если валидно удаляем эти классы
+    hideInputError(formSelector, inputSelector, object);  //  если валидно удаляем эти классы
   }
 };
 
-//  функцияя сброса значений у инпутов и спанов
+//  функцияя сброса значений у инпутов и спанов, срабатывает при открытии попапа
 function resetValidation () {
-  const formList = document.querySelectorAll('.popup__form')
+  const formList = document.querySelectorAll('.popup__form'); //  получаем массив форм
   formList.forEach((formSelector) => {
-    const inputErrorList = Array.from(formSelector.querySelectorAll('.popup__input-error'));
+    const inputErrorList = Array.from(formSelector.querySelectorAll('.popup__input-error')); //  для каждой формы получаем массив спанов
     inputErrorList.forEach((errorElement) => {
-      errorElement.textContent= ' '
-      });
-    const inputList = Array.from(formSelector.querySelectorAll('.popup__input'));
-    inputList.forEach((inputSelector) => {
-      inputSelector.classList.remove('popup__input_type_error');
-      });
-    })
-}
-
-//  задаем слушатели
-function setEventListeners(formSelector) {
-  const inputList = Array.from(formSelector.querySelectorAll('.popup__input'));
-  const submitButtonSelector = formSelector.querySelector('.popup__button-save');
-  toggleButtonState(inputList, submitButtonSelector);
-  inputList.forEach((inputSelector) => {
-    inputSelector.addEventListener('input', function () {
-      checkInputValidity(formSelector, inputSelector);
-      toggleButtonState(inputList, submitButtonSelector);
-      });
+      errorElement.textContent= ' '; //  очищаем каждый спан
     });
-  }
-
-function enableValidation() { //  сбрасываем стандартное поведение браузера
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  formList.forEach((formSelector) => {
-    formSelector.addEventListener('submit', (e) => {
-      e.preventDefault();
-    })
-    const fieldsetList = Array.from(formSelector.querySelectorAll('.popup__set'));
-    fieldsetList.forEach((fieldSet) => {
-    setEventListeners(fieldSet);
+    const inputList = Array.from(formSelector.querySelectorAll('.popup__input')); //  получаем массив инпутов
+    inputList.forEach((inputSelector) => {
+      inputSelector.classList.remove('popup__input_type_error');  // у каждого инпута удаляем класс с ошибкой
     });
   });
 };
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-save',
-  inputErrorClass: 'popup__input_type_error',
-});
-
-
-//  включаем кнопку сабмита
+//  включаем кнопку сабмита, срабатывает при открытии попапа
 function enableSubmitButton(submitButtonSelector) {
   submitButtonSelector.classList.remove('popup__button-save_disabled');
-}
+};
 
-//  задаем массив полей
+//  задаем слушатели
+function setEventListeners(formSelector, object) {
+  const inputList = Array.from(formSelector.querySelectorAll(object.inputSelector)); //  получаем массив инпутов
+  const submitButtonSelector = formSelector.querySelector(object.submitButtonSelector); //  получаем кнопку сабмита
+  toggleButtonState(inputList, submitButtonSelector, object); //  переключение состояния кнопки сабмита
+  inputList.forEach((inputSelector) => {
+    inputSelector.addEventListener('input', function () {  //  каждому инпуту задаем слушатель, если срабатывает событие инпут
+      checkInputValidity(formSelector, inputSelector, object);  //  проверяем валиден ли инпу
+      toggleButtonState(inputList, submitButtonSelector, object);  //  переключение состояния кнопки
+    });
+  });
+};
+
+function enableValidation(object) {
+  const formList = Array.from(document.querySelectorAll(object.formSelector)); //  получаем массив форм
+  formList.forEach((formSelector) => {
+    formSelector.addEventListener('submit', (e) => {
+      e.preventDefault(); //  сбрасываем стандартное поведение браузера формам
+    });
+    const fieldsetList = Array.from(formSelector.querySelectorAll(object.fieldSet)); //  получаем массив филдсетов
+    fieldsetList.forEach((fieldSet) => {
+    setEventListeners(fieldSet, object);  //  для каждого филдсета, задаем набор слушателей
+    });
+  });
+};
+
+//  объект со всеми селекторами и классами, что используются при валидации
+enableValidation({
+  formSelector: '.popup__form',  //  формы
+  inputSelector: '.popup__input',  //  инпуты
+  submitButtonSelector: '.popup__button-save',  //  кнопка
+  submitButtonSelectorDisabled: 'popup__button-save_disabled',  //  кнопка отключенная
+  inputErrorClass: 'popup__input_type_error',  //  инпут с ошибкой
+  spanErrorClassActive: 'popup__input-error_active',  //  спан с ошибкой
+  fieldSet: '.popup__set',  // филдсет
+});
+
+//  проверяем невалидно ли хоть одно поле
 function hasInvalidInput(inputList) {
   return inputList.some((inputSelector) => {
     return !inputSelector.validity.valid;
@@ -85,10 +88,10 @@ function hasInvalidInput(inputList) {
 }
 
 //  фукцния изменения кнопки сабмита
-function toggleButtonState(inputList, submitButtonSelector) {
-  if (hasInvalidInput(inputList)) {
-    submitButtonSelector.classList.add('popup__button-save_disabled');
+function toggleButtonState(inputList, submitButtonSelector, object) {
+  if (hasInvalidInput(inputList)) { //  если одно из полей невалидно
+    submitButtonSelector.classList.add(object.submitButtonSelectorDisabled); //  добавляем класс, который выключает кнопку
   } else {
-    submitButtonSelector.classList.remove('popup__button-save_disabled');
-  }
-}
+    submitButtonSelector.classList.remove(object.submitButtonSelectorDisabled); //  убираем класс, который выключает кнопку
+  };
+};
