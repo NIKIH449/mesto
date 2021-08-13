@@ -1,5 +1,6 @@
 //  объявляю переменные
 const page = document.querySelector('.page');
+const popups = page.querySelectorAll('.popup')
 const formElementEditProfile = page.querySelector('.popup_type_edit-profile');
 const formElementAddPicture = page.querySelector('.popup_type_add-picture');
 const formElementBigPicture = page.querySelector('.popup_type_picture');
@@ -7,6 +8,7 @@ const closeButtonEditProfile = page.querySelector('.popup__button-close_type_edi
 const closeButtonAddPicture = page.querySelector('.popup__button-close_type_add-picture');
 const closeButtonBigPicture = page.querySelector('.popup__button-close_type_picture');
 const buttonSaveEditProfile = formElementEditProfile.querySelector('.popup__button-save_type_edit-profile');
+const buttonSaveAddPicture = formElementAddPicture.querySelector('.popup__button-save_type_add-picture');
 const placeInput = formElementAddPicture.querySelector('.popup__input_type_place');
 const pictureInput = formElementAddPicture.querySelector('.popup__input_type_picture');
 const nameInput = formElementEditProfile.querySelector('.popup__input_type_name');
@@ -30,10 +32,9 @@ function toggleLike (element) {
 
 //  функция удаления карточек
 function removeCard (element) {
-  const cardElement = document.querySelector('.element__button-remove');
   element.querySelector('.element__button-remove').addEventListener('click', (e) => {
     const cardItem = e.target.closest('.element');
-    cardItem.remove(cardElement);
+    cardItem.remove();
   });
 };
 
@@ -74,6 +75,7 @@ function renderCard(e) {
   const cardElement = createCard(placeInput.value, pictureInput.value);
   cardList.prepend(cardElement);  //  добавляем карточки в начало
   closePopup(formElementAddPicture);
+  buttonSaveAddPicture.setAttribute('disabled', true) //  делаем кнопку неактивной
 };
 
 //  функция открытия попапов
@@ -91,38 +93,28 @@ function closePopup(popup) {
 //  функция закрытия попапов эскейпом
 function keyHandler(e) {
   if (e.key === "Escape") {
-    const popupList = Array.from(document.querySelectorAll('.popup'))
-    popupList.forEach((popup) => {
-      closePopup(popup);
-    });
-  };
+    const openedPopup = document.querySelector('.popup_opened')
+    openedPopup.classList.remove('popup_opened')
+  }
 };
 
 // функция закрытия попапа кликом по оверлею
 function closeOverlay(e) {
   if (e.target.classList.contains('popup')) {
-    e.target.classList.remove('popup_opened')
+    closePopup(e.target);
   };
 };
 
 //  функцияя сброса значений у инпутов и спанов, срабатывает при открытии попапа
-function resetInputError () {
-  const formList = document.querySelectorAll('.popup__form'); //  получаем массив форм
-  formList.forEach((formSelector) => {
-    const inputErrorList = Array.from(formSelector.querySelectorAll('.popup__input-error')); //  для каждой формы получаем массив спанов
-    inputErrorList.forEach((errorElement) => {
-      errorElement.textContent= ' '; //  очищаем каждый спан
-    });
-    const inputList = Array.from(formSelector.querySelectorAll('.popup__input')); //  получаем массив инпутов
-    inputList.forEach((inputSelector) => {
-      inputSelector.classList.remove('popup__input_type_error');  // у каждого инпута удаляем класс с ошибкой
-    });
+function resetInputError (formSelector) {
+  const inputErrorList = Array.from(formSelector.querySelectorAll('.popup__input-error')); //  для каждой формы получаем массив спанов
+  inputErrorList.forEach((errorElement) => {
+    errorElement.textContent= ' '; //  очищаем каждый спан
   });
-};
-
-//  включаем кнопку сабмита, срабатывает при открытии попапа
-function enableSubmitButton(submitButtonSelector) {
-  submitButtonSelector.classList.remove('popup__button-save_disabled');
+  const inputList = Array.from(formSelector.querySelectorAll('.popup__input')); //  получаем массив инпутов
+  inputList.forEach((inputSelector) => {
+    inputSelector.classList.remove('popup__input_type_error');  // у каждого инпута удаляем класс с ошибкой
+  });
 };
 
 //  обработчики событий
@@ -130,8 +122,7 @@ function enableSubmitButton(submitButtonSelector) {
 editButton.addEventListener('click', () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
-  resetInputError();  //  сбрасываем значения спанов
-  enableSubmitButton(buttonSaveEditProfile); //  включаем кнопку
+  resetInputError(formElementEditProfile);  //  сбрасываем значения спанов
   openPopup(formElementEditProfile);
 });
 
@@ -151,7 +142,7 @@ buttonSaveEditProfile.addEventListener('click', (e) => {
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
-  resetInputError();  //  сбрасываем значения спанов
+  resetInputError(formElementAddPicture);  //  сбрасываем значения спанов
   openPopup(formElementAddPicture);
 });
 

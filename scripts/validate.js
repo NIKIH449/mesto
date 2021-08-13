@@ -73,5 +73,6 @@ function toggleButtonState(inputList, submitButtonSelector, object) {
     submitButtonSelector.classList.add(object.submitButtonSelectorDisabled); //  добавляем класс, который выключает кнопку
   } else {
     submitButtonSelector.classList.remove(object.submitButtonSelectorDisabled); //  убираем класс, который выключает кнопку
+    submitButtonSelector.removeAttribute('disabled');  // разблокируем кнопку
   };
 };
