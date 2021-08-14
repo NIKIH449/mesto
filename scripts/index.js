@@ -124,7 +124,6 @@ editButton.addEventListener('click', () => {
   jobInput.value = profileDescription.textContent;
   resetInputError(formElementEditProfile);  //  сбрасываем значения спанов
   openPopup(formElementEditProfile);
-  buttonSaveEditProfile.setAttribute('disabled', true)
 });
 
 //  кнопка закрытия попапа редактирования профиля
