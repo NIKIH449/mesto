@@ -94,7 +94,7 @@ function closePopup(popup) {
 function keyHandler(e) {
   if (e.key === "Escape") {
     const openedPopup = document.querySelector('.popup_opened')
-    openedPopup.classList.remove('popup_opened')
+    closePopup(openedPopup)
   }
 };
 
@@ -106,12 +106,12 @@ function closeOverlay(e) {
 };
 
 //  функцияя сброса значений у инпутов и спанов, срабатывает при открытии попапа
-function resetInputError (formSelector) {
-  const inputErrorList = Array.from(formSelector.querySelectorAll('.popup__input-error')); //  для каждой формы получаем массив спанов
+function resetInputError (form) {
+  const inputErrorList = Array.from(form.querySelectorAll('.popup__input-error')); //  для каждой формы получаем массив спанов
   inputErrorList.forEach((errorElement) => {
     errorElement.textContent= ' '; //  очищаем каждый спан
   });
-  const inputList = Array.from(formSelector.querySelectorAll('.popup__input')); //  получаем массив инпутов
+  const inputList = Array.from(form.querySelectorAll('.popup__input')); //  получаем массив инпутов
   inputList.forEach((inputSelector) => {
     inputSelector.classList.remove('popup__input_type_error');  // у каждого инпута удаляем класс с ошибкой
   });
@@ -124,6 +124,7 @@ editButton.addEventListener('click', () => {
   jobInput.value = profileDescription.textContent;
   resetInputError(formElementEditProfile);  //  сбрасываем значения спанов
   openPopup(formElementEditProfile);
+  buttonSaveEditProfile.setAttribute('disabled', true)
 });
 
 //  кнопка закрытия попапа редактирования профиля
