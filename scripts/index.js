@@ -148,7 +148,7 @@ plusButton.addEventListener('click', () => {
 });
 
 //  функция отключения кнопки при открытии попапа
-function disableButton (button) {
+function disableSubmitButton (button) {
   button.setAttribute('disabled', true)
 }
 
