@@ -1,6 +1,5 @@
 //  объявляю переменные
 const page = document.querySelector('.page');
-const popups = page.querySelectorAll('.popup')
 const formElementEditProfile = page.querySelector('.popup_type_edit-profile');
 const formElementAddPicture = page.querySelector('.popup_type_add-picture');
 const formElementBigPicture = page.querySelector('.popup_type_picture');
@@ -124,6 +123,7 @@ editButton.addEventListener('click', () => {
   jobInput.value = profileDescription.textContent;
   resetInputError(formElementEditProfile);  //  сбрасываем значения спанов
   openPopup(formElementEditProfile);
+  disableSubmitButton(buttonSaveEditProfile)
 });
 
 //  кнопка закрытия попапа редактирования профиля
@@ -144,7 +144,13 @@ plusButton.addEventListener('click', () => {
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
   resetInputError(formElementAddPicture);  //  сбрасываем значения спанов
   openPopup(formElementAddPicture);
+  disableSubmitButton(buttonSaveAddPicture)
 });
+
+//  функция отключения кнопки при открытии попапа
+function disableButton (button) {
+  button.setAttribute('disabled', true)
+}
 
 //  кнопка закрытия попапа добавления картинки
 closeButtonAddPicture.addEventListener('click', () => {
