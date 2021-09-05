@@ -1,3 +1,7 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import { initialCards } from './initialCards.js';
+
 //  объявляю переменные
 const page = document.querySelector('.page');
 const formElementEditProfile = page.querySelector('.popup_type_edit-profile');
@@ -12,75 +16,41 @@ const placeInput = formElementAddPicture.querySelector('.popup__input_type_place
 const pictureInput = formElementAddPicture.querySelector('.popup__input_type_picture');
 const nameInput = formElementEditProfile.querySelector('.popup__input_type_name');
 const jobInput = formElementEditProfile.querySelector('.popup__input_type_desription');
-const bigPicture = formElementBigPicture.querySelector('.popup__image');
-const pictureDescription = formElementBigPicture.querySelector('.popup__picture-description')
 const editButton = page.querySelector('.profile__button_type_edit');
 const plusButton = page.querySelector('.profile__button_type_plus');
 const profileName = page.querySelector('.profile__name');
 const profileDescription = page.querySelector('.profile__description');
-const cardList = page.querySelector('.elements__list');
-const cardTemplate = document.querySelector('#element__template').content;
-
-//  возможности страницы
-//  функция поставить и убрать карточкам лайк
-function toggleLike (element) {
-  element.querySelector('.element__button-like').addEventListener('click', (e) => {
-    e.target.classList.toggle('element__button-like_active');
-  });
-};
-
-//  функция удаления карточек
-function removeCard (element) {
-  element.querySelector('.element__button-remove').addEventListener('click', (e) => {
-    const cardItem = e.target.closest('.element');
-    cardItem.remove();
-  });
-};
-
-//  функцонал попапа с картинкой
-function openBigPicture (element) {
-  element.querySelector('.element__picture').addEventListener('click', (e) => {
-    openPopup(formElementBigPicture);
-    bigPicture.src = e.target.getAttribute('src');
-    bigPicture.alt = e.target.getAttribute('alt');
-    pictureDescription.textContent = element.textContent; //  описание картинки
-  });
-};
-
-//  функция создания карточки
-function createCard(name, link) {
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const cardName = cardElement.querySelector('.element__place-name');
-  const cardPicture = cardElement.querySelector('.element__picture');
-  cardName.textContent =  name;
-  cardPicture.src = link;
-  cardPicture.alt = name;
-  toggleLike(cardElement);       // лайки
-  removeCard(cardElement);       //  удаление карточки
-  openBigPicture(cardElement);   //  открытие картинки
-  return cardElement;
-};
-
-//  загрузки карточек
-//  функция загруки карточек из массива
-initialCards.forEach(element => {
-  const cardElement = createCard(element.name, element.link);
-  cardList.append(cardElement);  //  добавить карточки в конец списка
+  //  объект со всеми селекторами и классами, что используются при валидации
+const object = ({
+  formSelector: '.popup__form',  //  формы
+  inputSelector: '.popup__input',  //  инпуты
+  submitButtonSelector: '.popup__button-save',  //  кнопка
+  submitButtonSelectorDisabled: 'popup__button-save_disabled',  //  кнопка отключенная
+  inputErrorClass: 'popup__input_type_error',  //  инпут с ошибкой
+  spanErrorClassActive: 'popup__input-error_active',  //  спан с ошибкой
 });
 
 //  функция добавления карточки через попап
 function renderCard(e) {
   e.preventDefault();
-  const cardElement = createCard(placeInput.value, pictureInput.value);
-  cardList.prepend(cardElement);  //  добавляем карточки в начало
+  const card = new Card(placeInput.value, pictureInput.value, '.element__template');
+  const cardElement = card.generateCard();
+  document.querySelector('.elements__list').prepend(cardElement);
   closePopup(formElementAddPicture);
-  buttonSaveAddPicture.setAttribute('disabled', true) //  делаем кнопку неактивной
+  buttonSaveAddPicture.setAttribute('disabled', true); //  делаем кнопку неактивной
 };
 
+//добавление при загрузке
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link, '.element__template');
+  const cardElement = card.generateCard();
+  document.querySelector('.elements__list').append(cardElement);
+});
+
 //  функция открытия попапов
-function openPopup(popup) {
+export default function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', keyHandler) //  добавляем слушатель для закрытия кнопкой
+  document.addEventListener('keydown', keyHandler); //  добавляем слушатель для закрытия кнопкой
 };
 
 //  функции закрытия попапов
@@ -92,9 +62,9 @@ function closePopup(popup) {
 //  функция закрытия попапов эскейпом
 function keyHandler(e) {
   if (e.key === "Escape") {
-    const openedPopup = document.querySelector('.popup_opened')
+    const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup)
-  }
+  };
 };
 
 // функция закрытия попапа кликом по оверлею
@@ -116,6 +86,11 @@ function resetInputError (form) {
   });
 };
 
+//  функция отключения кнопки при открытии попапа
+function disableSubmitButton (button) {
+  button.setAttribute('disabled', true);
+};
+
 //  обработчики событий
 //  кнопка редактирования профиля
 editButton.addEventListener('click', () => {
@@ -123,7 +98,7 @@ editButton.addEventListener('click', () => {
   jobInput.value = profileDescription.textContent;
   resetInputError(formElementEditProfile);  //  сбрасываем значения спанов
   openPopup(formElementEditProfile);
-  disableSubmitButton(buttonSaveEditProfile)
+  disableSubmitButton(buttonSaveEditProfile);
 });
 
 //  кнопка закрытия попапа редактирования профиля
@@ -144,13 +119,8 @@ plusButton.addEventListener('click', () => {
   formElementAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
   resetInputError(formElementAddPicture);  //  сбрасываем значения спанов
   openPopup(formElementAddPicture);
-  disableSubmitButton(buttonSaveAddPicture)
+  disableSubmitButton(buttonSaveAddPicture);
 });
-
-//  функция отключения кнопки при открытии попапа
-function disableSubmitButton (button) {
-  button.setAttribute('disabled', true)
-}
 
 //  кнопка закрытия попапа добавления картинки
 closeButtonAddPicture.addEventListener('click', () => {
@@ -167,3 +137,9 @@ formElementAddPicture.addEventListener('submit', renderCard);
 
 //  закрытие попапа по клику на оверлей
 document.addEventListener('mousedown', closeOverlay);
+
+//  создаем экземпляры класса валидации
+const formValidatorEditProfile = new FormValidator(object, formElementEditProfile);
+formValidatorEditProfile.enableValidation();
+const formValidatorAddPicture = new FormValidator(object, formElementAddPicture);
+formValidatorAddPicture.enableValidation();
