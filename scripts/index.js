@@ -7,7 +7,6 @@ const page = document.querySelector('.page');
 const popupEditProfile = page.querySelector('.popup_type_edit-profile');
 const popupAddPicture = page.querySelector('.popup_type_add-picture');
 const popups = page.querySelectorAll('.popup');
-const buttonSaveAddPicture = popupAddPicture.querySelector('.popup__button-save_type_add-picture');
 const placeInput = popupAddPicture.querySelector('.popup__input_type_place');
 const pictureInput = popupAddPicture.querySelector('.popup__input_type_picture');
 const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
