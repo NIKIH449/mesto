@@ -62,7 +62,7 @@ export default class FormValidator {
   _disableSubmitButton = () => {
     this._submitButtonElement.classList.add(this._submitButtonClassDisabled); //  добавляем класс, который выключает кнопку
     this._submitButtonElement.setAttribute('disabled', true);
-  }
+  };
 
   //  метод изменения кнопки сабмита
   _toggleButtonState = () => {

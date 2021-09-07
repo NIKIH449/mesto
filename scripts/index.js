@@ -102,11 +102,8 @@ popupEditProfile.addEventListener('submit', changeProfileName);
 //  закрытие попапа по клику на оверлей
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (e) => {
-    if (e.target.classList.contains('popup_opened')) {
+    if (e.target.classList.contains('popup_opened') || e.target.classList.contains('popup__button-close')) {
       closePopup(popup);
-    };
-    if (e.target.classList.contains('popup__button-close')) {
-      closePopup(popup)
     };
   });
 });
