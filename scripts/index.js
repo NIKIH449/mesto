@@ -17,8 +17,8 @@ const profileName = page.querySelector('.profile__name');
 const profileDescription = page.querySelector('.profile__description');
 //  объект со всеми селекторами и классами, что используются при валидации
 const object = ({
-  inputClass: '.popup__input',  //  инпуты
-  submitButtonClass: '.popup__button-save',  //  кнопка
+  inputSelector: '.popup__input',  //  инпуты
+  submitButtonSelector: '.popup__button-save',  //  кнопка
   submitButtonClassDisabled: 'popup__button-save_disabled',  //  кнопка отключенная
   inputErrorClass: 'popup__input_type_error',  //  инпут с ошибкой
   spanErrorClassActive: 'popup__input-error_active',  //  спан с ошибкой
@@ -38,8 +38,8 @@ function renderCard(e) {
 };
 
 //  создание карточек
-function createCard(name, link, element) {
-  const card = new Card(name, link, element);
+function createCard(name, link, templateSelector) {
+  const card = new Card(name, link, templateSelector);
   const cardElement = card.generateCard();
   document.querySelector('.elements__list').prepend(cardElement);
 };
