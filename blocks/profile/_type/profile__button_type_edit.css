@@ -9,6 +9,8 @@
   border: 1px solid white;
   margin: 10px 0 0 18px;
   transition: .3s;
+  align-self: center;
+
 }
 
 .profile__button_type_edit:hover {
@@ -18,7 +20,7 @@
 
 @media screen and (max-width: 767px) {
   .profile__button_type_edit {
-    margin: 0;
+    margin: 0 0 0 10px;
     width: 18px;
     height: 18px;
   }

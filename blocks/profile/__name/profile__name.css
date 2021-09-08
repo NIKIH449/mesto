@@ -5,10 +5,10 @@
   color: #FFFFFF;
   font-style: normal;
   margin: 0;
-  width: 433px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 530px;
 }
 
 
@@ -16,11 +16,11 @@
   .profile__name {
     font-size: 27px;
     line-height: 33px;
-    width: 278px;
+    max-width: 278px;
   }
 }
 @media screen and (max-width: 767px) {
   .profile__name {
-    width: 197px;
+    max-width: 197px;
   }
 }

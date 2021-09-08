@@ -1,7 +1,7 @@
 .profile__profile-info {
   max-width: 475px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   flex-wrap: wrap;
 }
 
