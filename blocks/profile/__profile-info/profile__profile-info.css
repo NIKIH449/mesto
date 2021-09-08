@@ -14,6 +14,6 @@
 @media screen and (max-width: 767px) {
   .profile__profile-info {
     justify-content: space-between;
-    max-width: 215px;
+    max-width: 219px;
   }
 }
