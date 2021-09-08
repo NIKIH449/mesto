@@ -21,6 +21,7 @@
 }
 @media screen and (max-width: 767px) {
   .profile__name {
+    white-space: normal;
     max-width: 197px;
   }
 }
