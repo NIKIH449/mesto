@@ -22,7 +22,6 @@ const object = ({
   submitButtonClassDisabled: 'popup__button-save_disabled',  //  кнопка отключенная
   inputErrorClass: 'popup__input_type_error',  //  инпут с ошибкой
   spanErrorClassActive: 'popup__input-error_active',  //  спан с ошибкой
-  spanErrorClass: '.popup__input-error',
 });
 //  создаем экземпляры класса валидации
 const formValidatorEditProfile = new FormValidator(object, popupEditProfile);
