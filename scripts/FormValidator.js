@@ -5,7 +5,6 @@ export default class FormValidator {
     this._submitButtonClassDisabled = object.submitButtonClassDisabled;
     this._inputErrorClass = object.inputErrorClass;
     this._spanErrorClassActive = object.spanErrorClassActive;
-    this._spanErrorClass = object.spanErrorClass;
     this._formElement = formElement;
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     this._submitButtonElement = this._formElement.querySelector(this._submitButtonSelector);
@@ -42,7 +41,7 @@ export default class FormValidator {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input',  () => {  //  каждому инпуту задаем слушатель, если срабатывает событие инпут
         this._checkInputValidity(inputElement);  //  проверяем валиден ли инпут
-        this._toggleButtonState(this._inputList, this._submitButtonElement);  //  переключение состояния кнопки
+        this._toggleButtonState();  //  переключение состояния кнопки
       });
     });
   };
