@@ -11,9 +11,9 @@ const initialCards = [
     alt: 'Иерусалим',
   },
   {
-    name: 'Мёрвтое море',
+    name: 'Мёртвое море',
     link: './images/deadsea.jpg',
-    alt: 'Мёрвтое море',
+    alt: 'Мёртвое море',
   },
   {
     name: 'Яффо',
