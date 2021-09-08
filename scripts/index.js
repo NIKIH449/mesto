@@ -1,28 +1,21 @@
-import Card from './Card.js';
+import Card from './classes/Card.js';
 import FormValidator from './FormValidator.js';
 import { initialCards } from './initialCards.js';
+import {
+  popupEditProfile,
+  popupAddPicture,
+  popups,
+  placeInput,
+  pictureInput,
+  nameInput,
+  jobInput,
+  editButton,
+  plusButton,
+  profileName,
+  profileDescription,
+  object,
+} from './constants.js';
 
-//  объявляю переменные
-const page = document.querySelector('.page');
-const popupEditProfile = page.querySelector('.popup_type_edit-profile');
-const popupAddPicture = page.querySelector('.popup_type_add-picture');
-const popups = page.querySelectorAll('.popup');
-const placeInput = popupAddPicture.querySelector('.popup__input_type_place');
-const pictureInput = popupAddPicture.querySelector('.popup__input_type_picture');
-const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
-const jobInput = popupEditProfile.querySelector('.popup__input_type_desription');
-const editButton = page.querySelector('.profile__button_type_edit');
-const plusButton = page.querySelector('.profile__button_type_plus');
-const profileName = page.querySelector('.profile__name');
-const profileDescription = page.querySelector('.profile__description');
-//  объект со всеми селекторами и классами, что используются при валидации
-const object = ({
-  inputSelector: '.popup__input',  //  инпуты
-  submitButtonSelector: '.popup__button-save',  //  кнопка
-  submitButtonClassDisabled: 'popup__button-save_disabled',  //  кнопка отключенная
-  inputErrorClass: 'popup__input_type_error',  //  инпут с ошибкой
-  spanErrorClassActive: 'popup__input-error_active',  //  спан с ошибкой
-});
 //  создаем экземпляры класса валидации
 const formValidatorEditProfile = new FormValidator(object, popupEditProfile);
 formValidatorEditProfile.enableValidation();
@@ -45,7 +38,7 @@ function createCard(name, link, templateSelector) {
 
 //  добавление карточек при загрузке
 initialCards.forEach((item) => {
-  createCard(item.name, item.link, '.element__template')
+  createCard(item.name, item.link, '.element__template');
 });
 
 //  функция открытия попапов
@@ -62,7 +55,7 @@ function closePopup(popup) {
 
 //  функция закрытия попапов эскейпом
 function keyHandler(e) {
-  if (e.key === "Escape") {
+  if (e.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   };
@@ -87,7 +80,7 @@ editButton.addEventListener('click', () => {
 
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
-  popupAddPicture.querySelector('.popup__form').reset();  //  сбрасываем инпуты
+  popupAddPicture.querySelector('.popup__form').reset(); //  сбрасываем инпуты
   formValidatorAddPicture.resetPopupForm();
   openPopup(popupAddPicture);
 });
@@ -103,6 +96,6 @@ popups.forEach((popup) => {
   popup.addEventListener('mousedown', (e) => {
     if (e.target.classList.contains('popup_opened') || e.target.classList.contains('popup__button-close')) {
       closePopup(popup);
-    };
+    }
   });
 });

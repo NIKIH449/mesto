@@ -1,34 +1,34 @@
 //  массив карточек, которые добавляются при загрузке страницы
 const initialCards = [
   {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    alt: 'Архыз',
+    name: 'Сент-Джордж',
+    link: './images/centjeorge.jpg',
+    alt: 'Сент-Джордж',
   },
   {
-    name: 'Гора Эльбрус',
-    link: 'https://images.unsplash.com/photo-1626518139514-65676cf25bac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
-    alt: 'Гора Эльбрус',
+    name: 'Иерусалим',
+    link: './images/jerusalem.jpg',
+    alt: 'Иерусалим',
   },
   {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    alt: 'Иваново',
+    name: 'Мёрвтое море',
+    link: './images/deadsea.jpg',
+    alt: 'Мёрвтое море',
   },
   {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    alt: 'Камчатка',
+    name: 'Яффо',
+    link: './images/yaffo.jpg',
+    alt: 'Яффо',
   },
   {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    alt: 'Холмогорский район',
+    name: 'Масада',
+    link: './images/masada.jpg',
+    alt: 'Масада',
   },
   {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    alt: 'Байкал',
+    name: 'Тель-Авив',
+    link: './images/telaviv.jpg',
+    alt: 'Тель-Авив',
   },
 ];
 

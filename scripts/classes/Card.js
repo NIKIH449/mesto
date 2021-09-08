@@ -1,4 +1,4 @@
-import openPopup from './index.js';
+import openPopup from '../index.js';
 export default class Card {
   constructor(name, link, cardSelector) {
     this._name = name;
@@ -32,7 +32,7 @@ export default class Card {
     this._likeButton.classList.toggle('element__button-like_active');
   };
 
-    //  метод удаления
+  //  метод удаления
   _removeCard = () => {
     this._element.remove();
     this._element = null;

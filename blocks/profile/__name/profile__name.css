@@ -5,7 +5,7 @@
   color: #FFFFFF;
   font-style: normal;
   margin: 0;
-  width: 294px;
+  width: 433px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -16,11 +16,11 @@
   .profile__name {
     font-size: 27px;
     line-height: 33px;
-    width: 189px;
+    width: 278px;
   }
 }
 @media screen and (max-width: 767px) {
   .profile__name {
-    text-align: center;
+    width: 197px;
   }
 }
