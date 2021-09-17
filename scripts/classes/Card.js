@@ -1,9 +1,9 @@
-import openPopup from '../index.js';
 export default class Card {
-  constructor(name, link, cardSelector) {
+  constructor(name, link, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   };
 
   //  получаем и копируем темплейт карточки
@@ -23,7 +23,7 @@ export default class Card {
     this._element.querySelector('.element__picture').alt = this._name;
     this._element.querySelector('.element__place-name').textContent = this._name;
     this._likeButton = this._element.querySelector('.element__button-like');
-    this._setEventListeners();
+    this.setEventListeners();
     return this._element;
   };
 
@@ -38,26 +38,14 @@ export default class Card {
     this._element = null;
   };
 
-  //  метод открытия попапа с карточкой, и присваивания параметры картинке
-  _openBigPicture = () => {
-    const bigPicture = document.querySelector('.popup__image');
-    const popupBigPicture = document.querySelector('.popup_type_picture');
-    openPopup(popupBigPicture);
-    bigPicture.src = this._link;
-    bigPicture.alt = this._name;
-    document.querySelector('.popup__picture-description').textContent = this._name; //  описание картинки
-  };
-
   //  слушатели событий
-  _setEventListeners() {
+  setEventListeners() {
     this._likeButton.addEventListener('click', () => {
       this._toggleLike();
     });
     this._element.querySelector('.element__button-remove').addEventListener('click', () => {
       this._removeCard();
     });
-    this._element.querySelector('.element__picture').addEventListener('click', () => {
-      this._openBigPicture();
-    });
+    this._element.querySelector('.element__picture').addEventListener('click', this._handleCardClick)
   };
 };
