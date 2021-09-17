@@ -1,10 +1,11 @@
-import Section from './classes/Section.js';
-import UserInfo from './classes/UserInfo.js';
-import PopupWithImage from './classes/PopupWithImage.js'
-import PopupWithForm from './classes/PopupWithForm.js';
-import Card from './classes/Card.js';
-import FormValidator from './classes/FormValidator.js';
-import { initialCards } from './initialCards.js';
+import './index.css';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from '../components/PopupWithForm.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import { initialCards } from '../utils/initialCards.js';
 import {
   popupEditProfile,
   popupAddPicture,
@@ -16,8 +17,7 @@ import {
   profileName,
   profileDescription,
   object,
-} from './constants.js';
-
+} from '../utils/constants.js';
 //  создаем экземпляры класса валидации
 const formValidatorEditProfile = new FormValidator(object, popupEditProfile);
 formValidatorEditProfile.enableValidation();
