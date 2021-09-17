@@ -1,11 +1,11 @@
-import Section from './classes/Section.js';
-import UserInfo from './classes/UserInfo.js';
-import Popup from './classes/Popup.js';
-import PopupWithImage from './classes/PopupWithImage.js'
-import PopupWithForm from './classes/PopupWithForm.js';
-import Card from './classes/Card.js';
-import FormValidator from './classes/FormValidator.js';
-import { initialCards } from './initialCards.js';
+import './index.css';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from '../components/PopupWithForm.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import { initialCards } from '../utils/initialCards.js';
 import {
   popupEditProfile,
   popupAddPicture,
@@ -17,8 +17,7 @@ import {
   profileName,
   profileDescription,
   object,
-} from './constants.js';
-
+} from '../utils/constants.js';
 //  создаем экземпляры класса валидации
 const formValidatorEditProfile = new FormValidator(object, popupEditProfile);
 formValidatorEditProfile.enableValidation();
@@ -30,9 +29,8 @@ formValidatorAddPicture.enableValidation();
 const popupAddCard = new PopupWithForm({
   popupSelector: popupAddPicture,
   handleFormSubmit: (item) => {
-    const popupBig = new PopupWithImage(popupBigPicture);
     createCard(item.name, item.link, '.element__template', () => {
-      popupBig.open(item);
+      popupBigCard.open(item);
     });
   },
 });
@@ -42,9 +40,8 @@ popupAddCard.setEventListeners();
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const popupBig = new PopupWithImage(popupBigPicture)
     createCard(item.name, item.link, '.element__template', () => {
-      popupBig.open(item)});
+      popupBigCard.open(item)});
   }
 }, '.elements__list');
 cardList.renderItems();
@@ -58,19 +55,17 @@ function createCard(name, link, templateSelector, handleCardClick) {
 
 //  меняем информацию о пользователе
 const userInfo = new UserInfo(profileName, profileDescription)
-const popupEditProf = new PopupWithForm({
+const popupEditUserInfo = new PopupWithForm({
   popupSelector:  popupEditProfile,
   handleFormSubmit: (item) => {
     userInfo.setUserInfo(item.username, item.description);
-}});
-popupEditProf.setEventListeners();
+  }
+});
+popupEditUserInfo.setEventListeners();
 
 //  создаем класс каждому попапу
-const popupAddElement = new Popup(popupAddPicture);
-const popupEditUserInfo = new Popup(popupEditProfile);
-const popupBigCard = new Popup(popupBigPicture);
+const popupBigCard = new PopupWithImage(popupBigPicture);
 popupBigCard.setEventListeners();
-
 
 //  обработчики событий
 //  кнопка открытия попапа
@@ -84,6 +79,6 @@ editButton.addEventListener('click', () => {
 
 //  кнопка добавить картинку
 plusButton.addEventListener('click', () => {
-  popupAddElement.open();
+  popupAddCard.open();
   formValidatorAddPicture.resetPopupForm();
 });
