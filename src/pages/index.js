@@ -24,7 +24,6 @@ formValidatorEditProfile.enableValidation();
 const formValidatorAddPicture = new FormValidator(object, popupAddPicture);
 formValidatorAddPicture.enableValidation();
 
-
 //  добавление карточки через попап
 const popupAddCard = new PopupWithForm({
   popupSelector: popupAddPicture,
