@@ -19,8 +19,9 @@ export default class Card {
   //  присваиваем карточке все параметры и возвращаем ее
   generateCard = () => {
     this._element = this._getTemplate();
-    this._element.querySelector('.element__picture').src = this._link;
-    this._element.querySelector('.element__picture').alt = this._name;
+    this._cardImage = this._element.querySelector('.element__picture');
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._element.querySelector('.element__place-name').textContent = this._name;
     this._likeButton = this._element.querySelector('.element__button-like');
     this.setEventListeners();

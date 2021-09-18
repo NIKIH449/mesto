@@ -1,7 +1,6 @@
 const page = document.querySelector('.page');
 const popupEditProfile = page.querySelector('.popup_type_edit-profile');
 const popupAddPicture = page.querySelector('.popup_type_add-picture');
-const popupBigPicture = document.querySelector('.popup_type_picture');
 const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
 const jobInput = popupEditProfile.querySelector('.popup__input_type_desription');
 const editButton = page.querySelector('.profile__button_type_edit');
@@ -22,7 +21,6 @@ export {
   page,
   popupEditProfile,
   popupAddPicture,
-  popupBigPicture,
   nameInput,
   jobInput,
   editButton,

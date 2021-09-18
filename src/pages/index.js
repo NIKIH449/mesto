@@ -9,7 +9,6 @@ import { initialCards } from '../utils/initialCards.js';
 import {
   popupEditProfile,
   popupAddPicture,
-  popupBigPicture,
   nameInput,
   jobInput,
   editButton,
@@ -26,11 +25,12 @@ formValidatorAddPicture.enableValidation();
 
 //  добавление карточки через попап
 const popupAddCard = new PopupWithForm({
-  popupSelector: popupAddPicture,
+  popupSelector: '.popup_type_add-picture',
   handleFormSubmit: (item) => {
-    createCard(item.name, item.link, '.element__template', () => {
+    const card = createCard(item.name, item.link, '.element__template', () => {
       popupBigCard.open(item);
     });
+    getCard(card);
   },
 });
 popupAddCard.setEventListeners();
@@ -39,23 +39,26 @@ popupAddCard.setEventListeners();
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    createCard(item.name, item.link, '.element__template', () => {
+    const card = createCard(item.name, item.link, '.element__template', () => {
       popupBigCard.open(item)});
+      getCard(card);
   }
 }, '.elements__list');
 cardList.renderItems();
 
 //  создание карточек
 function createCard(name, link, templateSelector, handleCardClick) {
-  const card = new Card(name, link, templateSelector, handleCardClick);
-  const cardElement = card.generateCard();
-  cardList.addItem(cardElement);
+  const card = new Card(name, link, templateSelector, handleCardClick).generateCard();
+  return card
 };
 
+function getCard(card) {
+  cardList.addItem(card);
+}
 //  меняем информацию о пользователе
 const userInfo = new UserInfo(profileName, profileDescription)
 const popupEditUserInfo = new PopupWithForm({
-  popupSelector:  popupEditProfile,
+  popupSelector:  '.popup_type_edit-profile',
   handleFormSubmit: (item) => {
     userInfo.setUserInfo(item.username, item.description);
   }
@@ -63,7 +66,7 @@ const popupEditUserInfo = new PopupWithForm({
 popupEditUserInfo.setEventListeners();
 
 //  создаем класс каждому попапу
-const popupBigCard = new PopupWithImage(popupBigPicture);
+const popupBigCard = new PopupWithImage('.popup_type_picture');
 popupBigCard.setEventListeners();
 
 //  обработчики событий
