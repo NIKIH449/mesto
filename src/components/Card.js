@@ -1,9 +1,10 @@
 export default class Card {
-  constructor(name, link, cardSelector, handleCardClick) {
+  constructor(name, link, cardSelector, handleCardClick, handleCardDelete) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._handleCardDelete = handleCardDelete
   };
 
   //  получаем и копируем темплейт карточки
@@ -44,9 +45,7 @@ export default class Card {
     this._likeButton.addEventListener('click', () => {
       this._toggleLike();
     });
-    this._element.querySelector('.element__button-remove').addEventListener('click', () => {
-      this._removeCard();
-    });
     this._element.querySelector('.element__picture').addEventListener('click', this._handleCardClick)
+    this._element.querySelector('.element__button-remove').addEventListener('click', this._handleCardDelete)
   };
 };
