@@ -11,6 +11,7 @@ const profileName = page.querySelector('.profile__name');
 const profileDescription = page.querySelector('.profile__description');
 const userAvatar = page.querySelector('.profile__avatar');
 const avatarButton = page.querySelector('.profile__button_type_avatar');
+const likeCount = document.querySelector('.element__likes')
 
 
 //  объект со всеми селекторами и классами, что используются при валидации
@@ -37,5 +38,5 @@ export {
   userAvatar,
   avatarButton,
   popupChangeAvatar,
-
+  likeCount,
 };
