@@ -5,13 +5,13 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handlerCardClick;
     this._popupCardDelete = popupCardDelete;
-    this._likes = like.length
-    this._likesId = like
+    this._likes = like
     this._id = id
     this._api = api
     this._ownerId = ownerId
     this._userId = userId
     this._handlerCardDelete = handlerCardDelete
+    console.log(this._cardSelector)
   };
 
   //  получаем и копируем темплейт карточки
@@ -34,14 +34,12 @@ export default class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.element__place-name').textContent = this._name;
-    this._element.querySelector('.element__likes').textContent = this._likes;
-    if (this._likesId.find(() => {
-      return (this._userId)
-    })) {
-      this._likeButton.classList.add('element__button-like_active')
+    this._element.querySelector('.element__likes').textContent = this._likes.length;
+    if (this._likes.find(item => this._userId === item._id)) {
+      this._likeButton.classList.add('element__button-like_active');
     }
     if (!(this._ownerId === this._userId)) {
-      this._buttonDelete.classList.add('element__button-remove_disable')
+      this._buttonDelete.classList.add('element__button-remove_disable');
     }
     this.setEventListeners();
     return this._element;
@@ -64,13 +62,6 @@ export default class Card {
     }
   };
 
-  deleteСard() {
-    this._api.deleteCard(this._id)
-      .then((res => {
-        console.log('res')
-      }));
-  }
-
   //  метод удаления
   _removeCard = () => {
     this._element.remove();
@@ -82,8 +73,11 @@ export default class Card {
     this._likeButton.addEventListener('click', () => {
       this.handlerLike();
     });
+    this._buttonDelete.addEventListener('click', () => {
+      this._removeCard()
+      this._handlerCardDelete()
+    });
+    //this._buttonDelete.addEventListener('click', this._popupCardDelete)
     this._element.querySelector('.element__picture').addEventListener('click', this._handleCardClick)
-    this._buttonDelete.addEventListener('click', this._handlerCardDelete)
-    this._buttonDelete.addEventListener('click', this._popupCardDelete)
   };
 };

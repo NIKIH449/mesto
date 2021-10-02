@@ -32,13 +32,15 @@ const api = new Api({
   }
 });
 
-let userId
 
+let userId
 api.getUserInfo()
-  .then((res) => {
+  .then(res => {
     userId = res._id
   })
-
+  .catch(err => {
+    console.log(err)
+  })
 
 //  создаем экземпляры класса валидации
 const formValidatorEditProfile = new FormValidator(object, popupEditProfile);
@@ -53,19 +55,22 @@ const popupAddCard = new PopupWithForm({
   popupSelector: '.popup_type_add-picture',
   handleFormSubmit: (item) => {
     api.setNewCard(item.name, item.link)
-      .then((info) => {
+      .then((item) => {
         const card = createCard(
-          info.name,
-          info.link,
+          item.name,
+          item.link,
           '.element__template',
-          () => { popupBigCard.open(info) },
+          () => { popupBigCard.open(item) },
           () => { popupDeletePicture.open()},
-          info.likes,
-          info._id,
+          item.likes,
+          item._id,
           api,
-          info.owner._id,
+          item.owner._id,
           userId,
-          () => { card.deleteCard() }
+          () => { api.deleteCard(item._id)
+            .catch(err => {
+              console.log(err)
+            })}
           )
           getCardPrepend(card);
       })
@@ -100,7 +105,10 @@ const cardList = new Section({
       api,
       item.owner._id,
       userId,
-      () => { card.deleteCard() }
+      () => { api.deleteCard(item._id)
+        .catch(err => {
+          console.log(err)
+        })}
     )
     getCardAppend(card);
   }
