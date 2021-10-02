@@ -32,6 +32,14 @@ const api = new Api({
   }
 });
 
+let userId
+
+api.getUserInfo()
+  .then((res) => {
+    userId = res._id
+  })
+
+
 //  создаем экземпляры класса валидации
 const formValidatorEditProfile = new FormValidator(object, popupEditProfile);
 formValidatorEditProfile.enableValidation();
@@ -39,11 +47,6 @@ const formValidatorAddPicture = new FormValidator(object, popupAddPicture);
 formValidatorAddPicture.enableValidation();
 const formValidatorChangeAvatar = new FormValidator(object, popupChangeAvatar);
 formValidatorChangeAvatar.enableValidation();
-
-const popupDeletePicture = new PopupWithConfirmation({
-  popupSelector: '.popup_type_delete-picture',
-})
-popupDeletePicture.setEventListeners()
 
 //  добавление карточки через попап
 const popupAddCard = new PopupWithForm({
@@ -57,9 +60,13 @@ const popupAddCard = new PopupWithForm({
           '.element__template',
           () => { popupBigCard.open(info) },
           () => { popupDeletePicture.open()},
-          info.likes.length,
+          info.likes,
           info._id,
-          api)
+          api,
+          info.owner._id,
+          userId,
+          () => { card.deleteCard() }
+          )
           getCardPrepend(card);
       })
       .catch(err => {
@@ -79,7 +86,6 @@ const popupAvatar = new PopupWithForm({
 })
 popupAvatar.setEventListeners()
 
-
 //  создание дефолтных шести карточек
 const cardList = new Section({
   renderer: (item) => {
@@ -89,19 +95,20 @@ const cardList = new Section({
       '.element__template',
       () => { popupBigCard.open(item) },
       () => { popupDeletePicture.open()},
-      item.likes.length,
+      item.likes,
       item._id,
-      api)
+      api,
+      item.owner._id,
+      userId,
+      () => { card.deleteCard() }
+    )
     getCardAppend(card);
   }
 }, '.elements__list');
 
-
-// OWNERID 274ce11873a65a1b26f568b5
-
 //  создание карточек
-function createCard(name, link, templateSelector, handleCardClick, handleCardDelete, likes, id, api) {
-  const card = new Card(name, link, templateSelector, handleCardClick, handleCardDelete, likes, id, api).generateCard();
+function createCard(name, link, templateSelector, handleCardClick, popupCardDelete, likes, id, api, ownderId, userId, handlerCardDelete) {
+  const card = new Card(name, link, templateSelector, handleCardClick, popupCardDelete, likes, id, api, ownderId, userId, handlerCardDelete).generateCard();
   return card
 };
 
@@ -113,6 +120,11 @@ function getCardPrepend(card) {
   cardList.addItemPrepend(card);
 }
 
+const popupDeletePicture = new PopupWithConfirmation({
+  popupSelector: '.popup_type_delete-picture',
+})
+popupDeletePicture.setEventListeners()
+
 //  вставляем с сервера дефолтные карточки
 api.getInitialCards()
   .then((cards) => {
@@ -121,10 +133,10 @@ api.getInitialCards()
   .catch(err => {
       console.log(err)
   })
-api.likes()
+
 api.getUserInfo()
   .then((data => {
-    userInfo.setUserInfo(data.name, data.about, data.avatar)
+    userInfo.setUserInfo(data.name, data.about)
     userInfo.setUserAvatar(data.avatar)
   }))
   //  меняем информацию о пользователе
@@ -132,8 +144,8 @@ const userInfo = new UserInfo(profileName, profileDescription, userAvatar)
 const popupEditUserInfo = new PopupWithForm({
   popupSelector:  '.popup_type_edit-profile',
   handleFormSubmit: (item) => {
-    userInfo.setUserInfo(item.username, item.description, item.userAvatar);
-    api.setUserInfo(item.username, item.description)
+    userInfo.setUserInfo(item.username, item.description);
+    api.setUserInfo(item.username, item.description);
   }
 });
 popupEditUserInfo.setEventListeners();

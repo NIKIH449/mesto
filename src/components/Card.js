@@ -1,13 +1,17 @@
 export default class Card {
-  constructor(name, link, cardSelector, handleCardClick, handleCardDelete, like, id, api) {
+  constructor(name, link, cardSelector, handlerCardClick, popupCardDelete, like, id, api, ownerId, userId, handlerCardDelete) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
-    this._handleCardClick = handleCardClick;
-    this._handleCardDelete = handleCardDelete;
-    this._like = like
+    this._handleCardClick = handlerCardClick;
+    this._popupCardDelete = popupCardDelete;
+    this._likes = like.length
+    this._likesId = like
     this._id = id
     this._api = api
+    this._ownerId = ownerId
+    this._userId = userId
+    this._handlerCardDelete = handlerCardDelete
   };
 
   //  получаем и копируем темплейт карточки
@@ -23,33 +27,49 @@ export default class Card {
   //  присваиваем карточке все параметры и возвращаем ее
   generateCard = () => {
     this._element = this._getTemplate();
-  //  if (!(this._id === '274ce11873a65a1b26f568b5')) {
-  //    this._element.querySelector('.element__button-remove').classList.add('element__button-remove_disable')
-  //  }
+    this._buttonDelete = this._element.querySelector('.element__button-remove');
     this._cardImage = this._element.querySelector('.element__picture');
+    this._likeButton = this._element.querySelector('.element__button-like');
+    this._likesCount = this._element.querySelector('.element__likes');
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.element__place-name').textContent = this._name;
-    this._likeButton = this._element.querySelector('.element__button-like');
-    this._likesCount = this._element.querySelector('.element__likes');
-    this._element.querySelector('.element__likes').textContent = this._like
+    this._element.querySelector('.element__likes').textContent = this._likes;
+    if (this._likesId.find(() => {
+      return (this._userId)
+    })) {
+      this._likeButton.classList.add('element__button-like_active')
+    }
+    if (!(this._ownerId === this._userId)) {
+      this._buttonDelete.classList.add('element__button-remove_disable')
+    }
     this.setEventListeners();
     return this._element;
   };
 
   //  метод лайка
-  _handlerLike = () => {
+  handlerLike = () => {
     if (!(this._likeButton.classList.contains('element__button-like_active'))) {
-      this._likeButton.classList.add('element__button-like_active')
       this._api.putLike(this._id)
-        .then(res => this._likesCount.textContent = res.likes.length)
-
+        .then((res) => {
+          this._likeButton.classList.add('element__button-like_active')
+          this._likesCount.textContent = res.likes.length
+        })
     } else {
-      this._likeButton.classList.remove('element__button-like_active')
       this._api.deleteLike(this._id)
-        .then(res => this._likesCount.textContent = res.likes.length)
+        .then((res) => {
+          this._likeButton.classList.remove('element__button-like_active')
+          this._likesCount.textContent = res.likes.length
+        })
     }
   };
+
+  deleteСard() {
+    this._api.deleteCard(this._id)
+      .then((res => {
+        console.log('res')
+      }));
+  }
 
   //  метод удаления
   _removeCard = () => {
@@ -60,10 +80,10 @@ export default class Card {
   //  слушатели событий
   setEventListeners() {
     this._likeButton.addEventListener('click', () => {
-      this._handlerLike();
-
+      this.handlerLike();
     });
     this._element.querySelector('.element__picture').addEventListener('click', this._handleCardClick)
-    this._element.querySelector('.element__button-remove').addEventListener('click', this._handleCardDelete)
+    this._buttonDelete.addEventListener('click', this._handlerCardDelete)
+    this._buttonDelete.addEventListener('click', this._popupCardDelete)
   };
 };
