@@ -20,7 +20,7 @@ import {
   userAvatar,
   avatarButton,
   popupChangeAvatar,
-  likeCount,
+  popupDeleteCard,
 } from '../utils/constants.js';
 
 //  храним токен
@@ -61,16 +61,12 @@ const popupAddCard = new PopupWithForm({
           item.link,
           '.element__template',
           () => { popupBigCard.open(item) },
-          () => { popupDeletePicture.open()},
+          (...args) => { popupDeletePicture.open(...args) },
           item.likes,
           item._id,
           api,
           item.owner._id,
           userId,
-          () => { api.deleteCard(item._id)
-            .catch(err => {
-              console.log(err)
-            })}
           )
           getCardPrepend(card);
       })
@@ -98,25 +94,21 @@ const cardList = new Section({
       item.name,
       item.link,
       '.element__template',
-      () => { popupBigCard.open(item) },
-      () => { popupDeletePicture.open()},
+      () => { popupBigCard.open(item)},
+      (...args) => { popupDeletePicture.open(...args) },
       item.likes,
       item._id,
       api,
       item.owner._id,
       userId,
-      () => { api.deleteCard(item._id)
-        .catch(err => {
-          console.log(err)
-        })}
     )
     getCardAppend(card);
   }
 }, '.elements__list');
 
 //  создание карточек
-function createCard(name, link, templateSelector, handleCardClick, popupCardDelete, likes, id, api, ownderId, userId, handlerCardDelete) {
-  const card = new Card(name, link, templateSelector, handleCardClick, popupCardDelete, likes, id, api, ownderId, userId, handlerCardDelete).generateCard();
+function createCard(name, link, templateSelector, handleCardClick, popupCardDelete, likes, id, api, ownderId, userId) {
+  const card = new Card(name, link, templateSelector, handleCardClick, popupCardDelete, likes, id, api, ownderId, userId).generateCard();
   return card
 };
 
@@ -130,6 +122,14 @@ function getCardPrepend(card) {
 
 const popupDeletePicture = new PopupWithConfirmation({
   popupSelector: '.popup_type_delete-picture',
+  handleFormSubmit: () => {
+    api.deleteCard(popupDeletePicture.id())
+      .then(() => {
+        popupDeletePicture.close()
+      })
+      .catch(err => {
+        console.log(err)
+    })}
 })
 popupDeletePicture.setEventListeners()
 

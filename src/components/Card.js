@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(name, link, cardSelector, handlerCardClick, popupCardDelete, like, id, api, ownerId, userId, handlerCardDelete) {
+  constructor(name, link, cardSelector, handlerCardClick, popupCardDelete, like, id, api, ownerId, userId) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
@@ -10,9 +10,8 @@ export default class Card {
     this._api = api
     this._ownerId = ownerId
     this._userId = userId
-    this._handlerCardDelete = handlerCardDelete
-    console.log(this._cardSelector)
   };
+
 
   //  получаем и копируем темплейт карточки
   _getTemplate() {
@@ -63,10 +62,11 @@ export default class Card {
   };
 
   //  метод удаления
-  _removeCard = () => {
+  removeCard = () => {
     this._element.remove();
     this._element = null;
   };
+
 
   //  слушатели событий
   setEventListeners() {
@@ -74,10 +74,8 @@ export default class Card {
       this.handlerLike();
     });
     this._buttonDelete.addEventListener('click', () => {
-      this._removeCard()
-      this._handlerCardDelete()
+      this._popupCardDelete(this._id, () => this._element.remove())
     });
-    //this._buttonDelete.addEventListener('click', this._popupCardDelete)
     this._element.querySelector('.element__picture').addEventListener('click', this._handleCardClick)
   };
 };
