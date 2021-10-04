@@ -4,6 +4,7 @@ export default class Api {
       this._headers = options.headers
   }
 
+  //  проверяем все ли впорядке с ответом
   _checkingAnswer(res) {
     if (res.ok) {
       return res.json();
@@ -13,6 +14,7 @@ export default class Api {
 
   getUserInfo () {
     return fetch(this._url + '/users/me', {
+      method: 'GET',
       headers: this._headers
     })
     .then(this._checkingAnswer)
@@ -55,6 +57,7 @@ export default class Api {
 
   getInitialCards() {
   return fetch(this._url + '/cards', {
+      method: 'GET',
       headers: this._headers
     })
     .then(this._checkingAnswer)

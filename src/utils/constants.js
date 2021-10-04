@@ -12,7 +12,6 @@ const profileDescription = page.querySelector('.profile__description');
 const userAvatar = page.querySelector('.profile__avatar');
 const avatarButton = page.querySelector('.profile__button_type_avatar');
 
-
 //  объект со всеми селекторами и классами, что используются при валидации
 const object = {
   inputSelector: '.popup__input', //  инпуты
