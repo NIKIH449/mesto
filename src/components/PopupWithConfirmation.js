@@ -8,7 +8,7 @@ export default class PopupWithConfirmation extends Popup {
 
   open(cardId, handlerDeleteCard) { //  передаем айди карточки, и функцию удаления карточки
     super.open();
-    this._handlerDeleteCard = handlerDeleteCard;
+    this.handlerDeleteCard = handlerDeleteCard;
     this._id = cardId;
   }
 
@@ -21,8 +21,6 @@ export default class PopupWithConfirmation extends Popup {
     this._popup.addEventListener('submit', (e) => {
       e.preventDefault();
       this._handleFormSubmit(); //  отправляем на сервер
-      this._handlerDeleteCard(); //  удаляем из верстки
-      this.close();
     });
   }
 }

@@ -5,7 +5,7 @@ export default class Api {
   }
 
   //  проверяем все ли впорядке с ответом
-  _checkingAnswer(res) {
+  _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
@@ -17,7 +17,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-    .then(this._checkingAnswer)
+    .then(this._checkResponse)
   }
 
   setUserInfo(name, description) {
@@ -29,7 +29,7 @@ export default class Api {
       }),
       headers: this._headers
     })
-    .then(this._checkingAnswer)
+    .then(this._checkResponse)
   }
 
   setUserAvatar(userAvatar) {
@@ -40,7 +40,7 @@ export default class Api {
       }),
       headers: this._headers
     })
-    .then(this._checkingAnswer)
+    .then(this._checkResponse)
   }
 
   setNewCard(name, link) {
@@ -52,7 +52,7 @@ export default class Api {
       }),
       headers: this._headers
     })
-    .then(this._checkingAnswer)
+    .then(this._checkResponse)
   }
 
   getInitialCards() {
@@ -60,7 +60,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-    .then(this._checkingAnswer)
+    .then(this._checkResponse)
   }
 
   putLike(cardId) {
@@ -68,7 +68,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers,
     })
-    .then(this._checkingAnswer)
+    .then(this._checkResponse)
   }
 
   deleteLike(cardId) {
@@ -76,7 +76,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then(this._checkingAnswer)
+    .then(this._checkResponse)
   }
 
   deleteCard(cardId) {
@@ -84,7 +84,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then(this._checkingAnswer)
+    .then(this._checkResponse)
   }
 }
 
