@@ -11,12 +11,6 @@ export default class Api {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  onSubmitStart() {
-    button.textContent = `Сохранение...`;
-    resultsContainer.innerHTML = '';
-    errorContainer.innerHTML = '';
-  }
-
   getUserInfo () {
     return fetch(this._url + '/users/me', {
       headers: this._headers
@@ -25,7 +19,7 @@ export default class Api {
   }
 
   setUserInfo(name, description) {
-    fetch(this._url + '/users/me', {
+    return fetch(this._url + '/users/me', {
       method: 'PATCH',
       body: JSON.stringify({
         name: name,
@@ -36,11 +30,11 @@ export default class Api {
     .then(this._checkingAnswer)
   }
 
-  setUserAvatar(avatar) {
-    fetch(this._url + '/users/me/avatar', {
+  setUserAvatar(userAvatar) {
+    return fetch(this._url + '/users/me/avatar', {
       method: 'PATCH',
       body: JSON.stringify({
-        avatar: avatar,
+        avatar: userAvatar,
       }),
       headers: this._headers
     })

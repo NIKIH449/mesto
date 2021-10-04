@@ -54,6 +54,7 @@ formValidatorChangeAvatar.enableValidation();
 const popupAddCard = new PopupWithForm({
   popupSelector: '.popup_type_add-picture',
   handleFormSubmit: (item) => {
+    popupAddCard.onSubmitStart()
     api.setNewCard(item.name, item.link)
       .then((item) => {
         const card = createCard(
@@ -71,7 +72,11 @@ const popupAddCard = new PopupWithForm({
           getCardPrepend(card);
       })
       .catch(err => {
-          console.log(err)
+        console.log(err)
+      })
+      .finally(() => {
+        popupAddCard.onSubmitDefault()
+        popupAddCard.close()
       })
   },
 });
@@ -81,8 +86,18 @@ popupAddCard.setEventListeners();
 const popupAvatar = new PopupWithForm({
   popupSelector: '.popup_type_change-avatar',
   handleFormSubmit: (item) => {
-    userInfo.setUserAvatar(item.avatar)
+    popupAvatar.onSubmitStart()
     api.setUserAvatar(item.avatar)
+      .then((item) => {
+        userInfo.setUserAvatar(item.avatar)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        popupAvatar.onSubmitDefault()
+        popupAvatar.close()
+      })
   }
 })
 popupAvatar.setEventListeners()
@@ -143,17 +158,31 @@ api.getInitialCards()
   })
 
 api.getUserInfo()
-  .then((data => {
+  .then(data => {
     userInfo.setUserInfo(data.name, data.about)
     userInfo.setUserAvatar(data.avatar)
-  }))
+  })
+  .catch(err => {
+    console.log(err)
+})
+
   //  меняем информацию о пользователе
 const userInfo = new UserInfo(profileName, profileDescription, userAvatar)
 const popupEditUserInfo = new PopupWithForm({
   popupSelector:  '.popup_type_edit-profile',
   handleFormSubmit: (item) => {
-    userInfo.setUserInfo(item.username, item.description);
-    api.setUserInfo(item.username, item.description);
+    popupEditUserInfo.onSubmitStart()
+    api.setUserInfo(item.username, item.description)
+      .then((item) => {
+        userInfo.setUserInfo(item.name, item.about)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        popupEditUserInfo.onSubmitDefault()
+        popupEditUserInfo.close()
+      })
   }
 });
 popupEditUserInfo.setEventListeners();
