@@ -31,26 +31,25 @@ const api = new Api({
   }
 });
 
-let userId;  //  храним айди пользователя, что бы передать его в карточку
-api.getUserInfo() //  получаем информацию о пользователе при загрузке страницы
-.then(data => {
-  userInfo.setUserInfo(data.name, data.about)
-  userInfo.setUserAvatar(data.avatar)
-  userId = data._id
-})
-.catch(err => {
-  console.log(err)
-})
+//  храним айди пользователя, что бы передать его в карточку
+let userId;
+
+//  получаем информацию о пользователе при загрузке страницы
+const profileInfo = api.getUserInfo()
 
 //  получаем с сервера дефолтные карточки
-api.getInitialCards()
-.then(cards => {
-  cardList.renderItems(cards)
-})
-.catch(err => {
-  console.log(err)
-})
+const itinialCards = api.getInitialCards()
 
+  //  выполняем промиcы
+Promise.all([profileInfo, itinialCards])
+  .then(data => {
+    userInfo.setUserInfo(data[0])
+    userId = data[0]._id
+    cardList.renderItems(data[1])
+  })
+  .catch(err => {
+    console.log(err)
+  })
 //  создаем экземпляры класса валидации
 const formValidatorEditProfile = new FormValidator(object, popupEditProfile);
 formValidatorEditProfile.enableValidation();
@@ -79,13 +78,13 @@ const popupAddCard = new PopupWithForm({
           userId,
           )
           getCardPrepend(card);
+          popupAddCard.close();
       })
       .catch(err => {
         console.log(err)
       })
       .finally(() => {
         popupAddCard.onSubmitDefault()
-        popupAddCard.close()
       })
   },
 });
@@ -98,14 +97,14 @@ const popupAvatar = new PopupWithForm({
     popupAvatar.onSubmitStart()
     api.setUserAvatar(inputValue.avatar)
       .then(data => {
-        userInfo.setUserAvatar(data.avatar)
+        userInfo.setUserInfo(data)
+        popupAvatar.close()
       })
       .catch(err => {
         console.log(err)
       })
       .finally(() => {
         popupAvatar.onSubmitDefault()
-        popupAvatar.close()
       })
   }
 })
@@ -151,6 +150,7 @@ const popupDeletePicture = new PopupWithConfirmation({
     api.deleteCard(popupDeletePicture.id())
       .then(() => {
         popupDeletePicture.close()
+        popupDeletePicture.handlerDeleteCard()
       })
       .catch(err => {
         console.log(err)
@@ -167,14 +167,14 @@ const popupEditUserInfo = new PopupWithForm({
     popupEditUserInfo.onSubmitStart()
     api.setUserInfo(inputValue.username, inputValue.description)
       .then(data => {
-        userInfo.setUserInfo(data.name, data.about)
+        userInfo.setUserInfo(data)
+        popupEditUserInfo.close()
       })
       .catch(err => {
         console.log(err)
       })
       .finally(() => {
         popupEditUserInfo.onSubmitDefault()
-        popupEditUserInfo.close()
       })
   }
 });

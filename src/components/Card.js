@@ -27,13 +27,13 @@ export default class Card {
   generateCard = () => {
     this._element = this._getTemplate();
     this._buttonDelete = this._element.querySelector('.element__button-remove');
-    this._cardImage = this._element.querySelector('.element__picture');
     this._likeButton = this._element.querySelector('.element__button-like');
     this._likesCount = this._element.querySelector('.element__likes');
+    this._likesCount.textContent = this._likes.length; //  количествт лайков равно длинне массива лайков получаемых с сервера
+    this._cardImage = this._element.querySelector('.element__picture');
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.element__place-name').textContent = this._name;
-    this._element.querySelector('.element__likes').textContent = this._likes.length; //  количествт лайков равно длинне массива лайков получаемых с сервера
     if (this._likes.find(item => this._userId === item._id)) { //  ищем в массиве лайков айди пролайкавших карточку, если совпадает с айди пользователя -- меняем фон
       this._likeButton.classList.add('element__button-like_active');
     }
@@ -49,15 +49,21 @@ export default class Card {
   handlerLike = () => {
     if (!(this._likeButton.classList.contains('element__button-like_active'))) {
       this._api.putLike(this._id)
-        .then((res) => {
+        .then(res => {
           this._likeButton.classList.add('element__button-like_active')
           this._likesCount.textContent = res.likes.length
         })
+        .catch(err => {
+          console.log(err)
+        })
     } else {
       this._api.deleteLike(this._id)
-        .then((res) => {
+        .then(res => {
           this._likeButton.classList.remove('element__button-like_active')
           this._likesCount.textContent = res.likes.length
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   };
@@ -72,6 +78,6 @@ export default class Card {
     this._buttonDelete.addEventListener('click', () => {
       this._handlerCardDelete(this._id, () => this._element.remove())
     });
-    this._element.querySelector('.element__picture').addEventListener('click', this._handleCardClick)
+    this._cardImage.addEventListener('click', this._handleCardClick)
   };
 };
