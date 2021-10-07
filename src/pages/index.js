@@ -63,19 +63,15 @@ const popupAddCard = new PopupWithForm({
   popupSelector: '.popup_type_add-picture',
   handleFormSubmit: (inputValue) => {
     popupAddCard.onSubmitStart()
-    api.setNewCard(inputValue.name, inputValue.link)
+    api.setNewCard(inputValue)
       .then(data => {
         const card = createCard(
-          data.name,
-          data.link,
           '.element__template',
           () => { popupBigCard.open(data) },
           (...args) => { popupDeletePicture.open(...args) },
-          data.likes,
-          data._id,
           api,
-          data.owner._id,
           userId,
+          data
           )
           getCardPrepend(card);
           popupAddCard.close();
@@ -114,24 +110,20 @@ popupAvatar.setEventListeners()
 const cardList = new Section({
   renderer: (data) => {
     const card = createCard(
-      data.name,
-      data.link,
       '.element__template',
       () => { popupBigCard.open(data)},
       (...args) => { popupDeletePicture.open(...args) },
-      data.likes,
-      data._id,
       api,
-      data.owner._id,
       userId,
+      data,
     )
     getCardAppend(card);
   }
 }, '.elements__list');
 
 //  создание карточек
-function createCard(name, link, templateSelector, handleCardClick, popupCardDelete, likes, id, api, ownderId, userId) {
-  const card = new Card(name, link, templateSelector, handleCardClick, popupCardDelete, likes, id, api, ownderId, userId).generateCard();
+function createCard(templateSelector, handleCardClick, handlerCardDelete, api, userId, data) {
+  const card = new Card(templateSelector, handleCardClick, handlerCardDelete, api, userId, data).generateCard();
   return card
 };
 
@@ -165,7 +157,7 @@ const popupEditUserInfo = new PopupWithForm({
   popupSelector:  '.popup_type_edit-profile',
   handleFormSubmit: (inputValue) => {
     popupEditUserInfo.onSubmitStart()
-    api.setUserInfo(inputValue.username, inputValue.description)
+    api.setUserInfo(inputValue)
       .then(data => {
         userInfo.setUserInfo(data)
         popupEditUserInfo.close()

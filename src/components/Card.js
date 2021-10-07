@@ -1,17 +1,16 @@
 export default class Card {
-  constructor(name, link, cardSelector, handlerCardClick, handlerCardDelete, likes, id, api, ownerId, userId) {
-    this._name = name;
-    this._link = link;
+  constructor(cardSelector, handlerCardClick, handlerCardDelete, api, userId, data) {
     this._cardSelector = cardSelector;
     this._handleCardClick = handlerCardClick;
     this._handlerCardDelete = handlerCardDelete;
-    this._likes = likes;
-    this._id = id;
     this._api = api;
-    this._ownerId = ownerId;
     this._userId = userId;
+    this._likes = data.likes
+    this._id = data._id;
+    this._ownerId = data.owner._id;
+    this._name = data.name;
+    this._link = data.link;
   };
-
 
   //  получаем и копируем темплейт карточки
   _getTemplate() {
