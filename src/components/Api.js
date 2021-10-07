@@ -20,12 +20,12 @@ export default class Api {
     .then(this._checkResponse)
   }
 
-  setUserInfo(name, description) {
+  setUserInfo(inputValue) {
     return fetch(this._url + '/users/me', {
       method: 'PATCH',
       body: JSON.stringify({
-        name: name,
-        about: description,
+        name: inputValue.username,
+        about: inputValue.description,
       }),
       headers: this._headers
     })
@@ -43,12 +43,12 @@ export default class Api {
     .then(this._checkResponse)
   }
 
-  setNewCard(name, link) {
+  setNewCard(inputValue) {
     return fetch(this._url + '/cards', {
       method: 'POST',
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name: inputValue.name,
+        link: inputValue.link,
       }),
       headers: this._headers
     })
