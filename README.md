@@ -22,10 +22,12 @@
 
 ### Инструкция по развёртыванию 
 
-npm start
+#### npm start
+
 Запуск в режиме разработки. Откроется окно в браузере.
 
-npm run build
+#### npm run build
+
 Соберет проект в папку build.
 
 #### [Макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4)
