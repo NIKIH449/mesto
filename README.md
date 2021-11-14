@@ -13,7 +13,6 @@
 - CSS
 - JS
 - WEBPACK5
-- БЭМ
 - API
 - BEM
 - Webpack
